@@ -1,4 +1,5 @@
-/**using System;
+/**
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,6 +30,7 @@ namespace olympic_app
 using System;
 using System.Collections.Generic;
 using olympic_app.DB;
+using olympic_app.Models;
 
 namespace olympic_app
 {
@@ -38,9 +40,22 @@ namespace olympic_app
         {
             DBConnect dBConnect = new DBConnect();
             dBConnect.OpenConnection();
+            List<Post> check = dBConnect.FeedPosts();
+            foreach(Post p in check){
+               Console.WriteLine(p.PostId);   
+               Console.WriteLine(p.Likes);
+
+
+            }
+            /**
+            List<string> sports = dBConnect.GeneratePosts();
+            foreach (string item in sports){
+                Console.WriteLine(item);
+            }
+            
             string result =dBConnect.TheMostXAthlete("Basketball", "Height", "DESC");
             Console.WriteLine(result);
-/**
+
             List< string >[] list = dBConnect.Select(); 
             for (int i = 0; i < 2; i++)
             {
@@ -67,7 +82,9 @@ namespace olympic_app
             string name = dBConnect.TheBestAthlete(sport);
             Console.WriteLine("The Best Athlete in the field of " + sport + " is: " +name);
             */
+            
         }
         
     }
 }
+

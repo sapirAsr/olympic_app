@@ -10,6 +10,7 @@ namespace olympic_app.Models
         public int PostId { get; set; }
         public string Content { get; set; }
         public int Likes { get; set; }
+        public DateTime Date { get; set; }
 
     }
 }

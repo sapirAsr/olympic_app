@@ -4,6 +4,12 @@
    // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
    "version": "0.2.0",
    "configurations": [
+       {
+           "name": ".NET Core Attach",
+           "type": "coreclr",
+           "request": "attach",
+           "processId": "${command:pickProcess}"
+       },
 
         {
             "name": ".NET Core Launch (web)",
@@ -26,6 +32,13 @@
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
             }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "skipFiles": ["<node_internals>/**"],
+            "program": "${workspaceFolder}\\app.js"
         },
         {
             "name": ".NET Core Attach",

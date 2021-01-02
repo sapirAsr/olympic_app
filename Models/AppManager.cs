@@ -14,11 +14,12 @@ namespace olympic_app.Models
 
         public AppManager(){
             dBConnect = new DBConnect();
+            dBConnect.OpenConnection();
+
 
         }
         public List<Post> getPosts()
         { 
-            dBConnect.OpenConnection();
             List< Post > list = dBConnect.FeedPosts(); 
             return list;
         }
