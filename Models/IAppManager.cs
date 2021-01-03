@@ -9,5 +9,10 @@ namespace olympic_app.Models
     public interface IAppManager
     {
         List<Post> getPosts();
+        bool UserLogin(string username, string password);
+        bool UserSignup(string username, string password);
+
+        bool LikePost(string username, int post_id);
+
     }
 }

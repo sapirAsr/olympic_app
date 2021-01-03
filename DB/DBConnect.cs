@@ -260,10 +260,6 @@ namespace olympic_app.DB
             //Read the data and store the name in string
             while (dataReader.Read())
             {
-                //posts.Add(dataReader["Post_id"] + "");
-                //posts.Add(dataReader["Post_content"] + "");
-                //posts.Add(dataReader["Sport"] + "");
-                //posts.Add(dataReader["Date"] + "");
                 Post p1 = new Post { PostId = Int32.Parse(dataReader["Post_id"] + ""), Content = dataReader["Post_content"] + "", Likes = 0, Date = DateTime.Parse(dataReader["Date"] + "" )};
                 posts.Add(p1);
 
@@ -333,20 +329,20 @@ namespace olympic_app.DB
     
         //users
 
-        public void NewUserRegister(string username, string password){
+        public bool NewUserRegister(string username, string password){
             string queryString = "INSERT INTO olympicapp.users (User_name,Password,Is_admin) VALUES (\"" + username + "\",\"" +  password + "\",0);";            
             MySqlCommand cmd = new MySqlCommand(queryString, connection);
             try{
             dataReader = cmd.ExecuteReader();
             while (dataReader.Read()) {}
             dataReader.Close();
-    
+            return true;
             }
             catch (MySqlException ex){
 
                 Console.WriteLine(ex.Data);
                 Console.WriteLine("alredy exist");
-        
+                return false;
             }   
             //close Data Reader
         }
@@ -361,7 +357,7 @@ namespace olympic_app.DB
                         result.Add(dataReader["Password"] + "");
                     }
                     dataReader.Close();
-                    if (result[0] == username && result[1] == password){
+                    if (result.Count == 2){
                         return true;
                     }
             }

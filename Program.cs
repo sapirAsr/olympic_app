@@ -1,4 +1,4 @@
-/**
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +25,8 @@ namespace olympic_app
                 });
     }
 }
-*/
 
+/**
 using System;
 using System.Collections.Generic;
 using olympic_app.DB;
@@ -81,10 +81,11 @@ namespace olympic_app
             string sport = "Basketball";
             string name = dBConnect.TheBestAthlete(sport);
             Console.WriteLine("The Best Athlete in the field of " + sport + " is: " +name);
-            */
+            
             
         }
         
     }
 }
+*/
 

@@ -33,7 +33,7 @@ namespace olympic_app.Controllers
 
         // POST: api/Feed
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(string username, int post_id)
         {
         }
 

@@ -8,7 +8,7 @@ function get_post(){
                 let listOfPosts = [];    
                 let post1 = feedPost[0];
                 console.log(post1.Content);  
-                $(".vsc-initialized").append("<p>" + post1.content + "</p>");
+                $(".feed").append("<p>" + post1.content + "</p>");
                               
             } else {                   
                 console.log("Error", xhttp.statusText);
