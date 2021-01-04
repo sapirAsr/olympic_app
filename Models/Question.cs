@@ -9,7 +9,6 @@ namespace olympic_app.Models
     public class Question
     {
         public string QuestionString { get; set; }
-  
         public string CorrectAnswer { get; set; }
         public string WrongAnswer1 { get; set; }
         public string WrongAnswer2 { get; set; }
