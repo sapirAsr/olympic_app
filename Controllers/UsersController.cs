@@ -34,6 +34,19 @@ namespace olympic_app.Controllers
         {
             return manager.UserSignup(user.Username, user.Password);
         }
+        [HttpPost]
+        // /api/Users/change_password
+        [ActionName("change_password")]
+        public bool UpdatePassword(User user)
+        {
+            return manager.ChangePassword(user.Username, user.Password);
+        }
+        [HttpDelete]
+        // /api/Users
+        public bool DeleteUser(User user, bool isAdmin)
+        {
+            return manager.DeleteUser(user.Username, user.Password, isAdmin);
+        }
 
     }
 }

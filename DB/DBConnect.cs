@@ -249,8 +249,7 @@ namespace olympic_app.DB
              sportsList = sports;
             
         }
-        
-      
+         
         public List<Post> FeedPosts(){
             string queryString = "SELECT * FROM olympicapp.feed ORDER BY RAND() LIMIT 10;";
             MySqlCommand cmd = new MySqlCommand(queryString, connection);
@@ -273,7 +272,7 @@ namespace olympic_app.DB
             return posts;
         }
 
-
+        // queries for feed  
         public List<string> TheMostXAthlete(string sport, string parameter, string order){
 
              var queryString = "SELECT Name,"+ parameter +" FROM" +
@@ -297,8 +296,6 @@ namespace olympic_app.DB
              dataReader.Close();
              return result;
         }
-
-
 
         //the best athlete in specific sport
 
@@ -369,8 +366,61 @@ namespace olympic_app.DB
                         
                                     
         }
+
+        public bool DeleteUser(string username, string password, bool isAdmin){
+            string queryString =" DELETE FROM olympicapp.users WHERE User_name = \""+username+"\" AND Password = \""+password+"\"";
+            MySqlCommand cmd = new MySqlCommand(queryString, connection);
+            try
+            {
+                    dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read()) {}
+                    dataReader.Close();
+                    return true;
+            }
+            catch (MySqlException ){
+                        
+                    Console.WriteLine("error while deleting this user");
+            }
+            if(isAdmin){
+                queryString =" DELETE FROM olympicapp.admin_premission WHERE User_name = \""+username+"\";";
+                cmd = new MySqlCommand(queryString, connection);
+                try
+                {
+                        dataReader = cmd.ExecuteReader();
+                        while (dataReader.Read()) {    }
+                        dataReader.Close();
+                        return true;
+                }
+                catch (MySqlException )
+                {
+                                
+                        Console.WriteLine("error while deleting this admin user");
+                }
+            }
+            return false;
+                        
+        }
+        public bool ChangePassword(string username, string new_password){
+      
+            string queryString =" UPDATE olympicapp.users WHERE SET Password = \""+ new_password +"\"' WHERE User_name = \""+ username +"\"";
+            MySqlCommand cmd = new MySqlCommand(queryString, connection);
+            try
+            {
+                    dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read()) {}
+                    dataReader.Close();
+                    return true;
+            }
+            catch (MySqlException ){
+                        
+                    Console.WriteLine("error while deleting this user");
+            }
+            return false;
+
+
+        }
     
-    //likes
+         //likes
         public bool LikePost(string username, int post_id){
             string queryString ="INSERT INTO olympicapp.likes (User_name,Post_id)"+
                                 "VALUES (\""+username+"\","+ post_id+");";
