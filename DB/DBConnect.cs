@@ -9,7 +9,6 @@ using olympic_app.Models;
 
 namespace olympic_app.DB
 {  
-
     public class DBConnect
     {
         private MySqlConnection connection;
@@ -358,7 +357,7 @@ namespace olympic_app.DB
              return result;
 
         }*/
-        
+
         public string GetXByYWhereZFromAthletes(string x, string y, string z){
             var queryString = @"SELECT " + x +" From olympicapp.athletes WHERE "+ y +" = '" + z + "';";
             string result = "";
@@ -476,32 +475,33 @@ namespace olympic_app.DB
             }   
             //close Data Reader
         }
-        public bool Login(string username, string password){
-            string queryString ="SELECT User_name, Password FROM olympicapp.users WHERE User_name = \""+username+"\" AND Password = \""+password+"\"";
-            List<string> result = new List<string>();
+        public User Login(string username, string password){
+            string queryString ="SELECT User_name, Password, Is_admin FROM olympicapp.users WHERE User_name = \"" + username + "\" AND Password = \"" + password + "\"";
+            User result = new User();
             MySqlCommand cmd = new MySqlCommand(queryString, connection);
             try{
                     dataReader = cmd.ExecuteReader();
                     while (dataReader.Read()) {
-                        result.Add(dataReader["User_name"] + "");
-                        result.Add(dataReader["Password"] + "");
+                        result.Username = dataReader["User_name"] + "";
+                        result.Password = dataReader["Password"] + "";
+                        result.isAdmin = Convert.ToBoolean(Convert.ToInt16(dataReader["Is_admin"] + ""));
+
                     }
                     dataReader.Close();
-                    if (result.Count == 2){
-                        return true;
-                    }
+                    return result;
+                    
             }
             catch (MySqlException ){
                         
                 Console.WriteLine("password or user name incorrect");
             } 
-            return false;
+            return result;
                         
                                     
         }
 
-        public bool DeleteUser(string username, string password, bool isAdmin){
-            string queryString =" DELETE FROM olympicapp.users WHERE User_name = \""+username+"\" AND Password = \""+password+"\"";
+        public bool DeleteUser(User user){
+            string queryString =" DELETE FROM olympicapp.users WHERE User_name = \""+user.Username+"\" AND Password = \""+user.Password+"\"";
             MySqlCommand cmd = new MySqlCommand(queryString, connection);
             try
             {
@@ -514,8 +514,8 @@ namespace olympic_app.DB
                         
                     Console.WriteLine("error while deleting this user");
             }
-            if(isAdmin){
-                queryString =" DELETE FROM olympicapp.admin_premission WHERE User_name = \""+username+"\";";
+            if(user.isAdmin){
+                queryString =" DELETE FROM olympicapp.admin_premission WHERE User_name = \"" + user.Username + "\";";
                 cmd = new MySqlCommand(queryString, connection);
                 try
                 {
@@ -553,6 +553,32 @@ namespace olympic_app.DB
 
         }
     
+        public bool UpdateAdmin(User user,string sport, bool isAdmin)
+        {
+            string queryString = "";
+            if (!isAdmin)
+            {
+                queryString = "INSERT INTO admin_premission (User_name,"+ sport +") VALUES(\"" + user.Username + "\", 1)";  
+            } 
+            else{
+                queryString = "UPDATE olympicapp.admin_premission SET "+ sport +"= 1 WHERE User_name = " + user.Username + "\";";
+            } 
+             MySqlCommand cmd = new MySqlCommand(queryString, connection);
+                try{
+                dataReader = cmd.ExecuteReader();
+                while (dataReader.Read()) {}
+                dataReader.Close();
+                return true;
+                }
+                catch (MySqlException ex){
+
+                    Console.WriteLine(ex.Data);
+                    Console.WriteLine("alredy exist");
+                    return false;
+                }           
+           
+        }
+        
          //likes
         public bool LikePost(string username, int post_id){
             string queryString ="INSERT INTO olympicapp.likes (User_name,Post_id)"+

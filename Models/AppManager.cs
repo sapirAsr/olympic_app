@@ -25,7 +25,7 @@ namespace olympic_app.Models
         public List<Question> GetQuestions(string sport){
             return dBConnect.GetQuestions(sport);
         }
-        public bool UserLogin(string username, string password){
+        public User UserLogin(string username, string password){
             return dBConnect.Login(username, password);
         }
         public bool UserSignup(string username, string password){
@@ -36,8 +36,8 @@ namespace olympic_app.Models
              return dBConnect.LikePost(username,post_id);
         }
     
-        public bool DeleteUser(string username, string password, bool isAdmin){
-             return dBConnect.DeleteUser(username,password, isAdmin);
+        public bool DeleteUser(User user){
+             return dBConnect.DeleteUser(user);
         }
         public bool ChangePassword(string username, string password){
              return dBConnect.ChangePassword(username,password);
@@ -45,6 +45,10 @@ namespace olympic_app.Models
         }
         public List<string> GetSportList(){
             return dBConnect.GetSportList();           
+        }
+        public bool UpdateAdmin(User user,string sport, bool isAdmin)
+        {
+            return dBConnect.UpdateAdmin(user, sport, isAdmin);
         }
 
 

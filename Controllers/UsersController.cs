@@ -22,7 +22,8 @@ namespace olympic_app.Controllers
         // /api/Users
         [ActionName("login")]
 
-        public bool Post(User user)
+        //returns user with the info if this user is admin      
+        public User Post(User user)
         {
             return manager.UserLogin(user.Username, user.Password);
         }
@@ -42,10 +43,20 @@ namespace olympic_app.Controllers
             return manager.ChangePassword(user.Username, user.Password);
         }
         [HttpDelete]
+        [ActionName("delete")]
+
         // /api/Users
-        public bool DeleteUser(User user, bool isAdmin)
+        public bool DeleteUser(User user)
         {
-            return manager.DeleteUser(user.Username, user.Password, isAdmin);
+            return manager.DeleteUser(user);
+        }
+
+        [HttpPost]
+        // /api/Users/sign_up
+        [ActionName("admin")]
+        public bool UpdateAdmin(User user,string sport, bool isAdmin)
+        {
+            return manager.UpdateAdmin(user, sport, isAdmin);
         }
 
     }
