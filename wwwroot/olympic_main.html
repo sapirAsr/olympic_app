@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Olympic Games</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="ask_us/ask_us.html"></script>
+    <link href="css_files/feed_page.css" rel="stylesheet" media="all">
+    <script src="js/nav_functions.js"></script>
+    <script src="js/feed_functions.js"></script>
+
+
+</head>
+
+<body onload="load_feed_news()">
+        <!-- NAV BAR-->
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"></a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#" onclick="open_tests_menu_page()">Tests</a></li>
+                        <li><a href="#" onclick="open_ask_us_page()">Ask us</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#" onclick="open_profile_page()"><span class="glyphicon glyphicon-log-in"></span> Profile</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!--Title-->
+        <div class="jumbotron">
+            <div class="container text-center">
+                <h2>Olympic Games</h2>
+            </div>
+        </div>
+
+        <!--FIRST ROW-->
+        <div class="container">
+            <div class="row bootstrap snippets bootdey">
+                <div class="col-md-7 col-xs-12 col-md-offset-3">
+                    <div class="panel" id="daily-feed">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                Feed
+                                <span class="pull-right label label-round label-warning">10 Messages</span>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="list-group list-group-dividered list-group-full">
+                                <li class="list-group-item">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a class="avatar avatar" href="javascript:void(0)">
+                                                <img src="https://scontent.ftlv6-1.fna.fbcdn.net/v/t1.0-9/102413004_10217695998171092_1600323870382983063_n.jpg?_nc_cat=101&ccb=2&_nc_sid=09cbfe&_nc_ohc=Iz3CM6xqiTUAX-2pMv6&_nc_ht=scontent.ftlv6-1.fna&oh=cff3dee2f1efbf3eb82bea9919d55184&oe=600E9E11" alt=""><i></i>
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">
+                                                <a id="1st_msg" class="name">Eden </a>
+                                            </h4>
+                                            <div class="actions margin-top-10">
+                                                <button type="button" class="btn btn-danger btn-xs waves-effect waves-light"><i class="icon md-thumb-up" aria-hidden="true"></i>Like</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a class="avatar avatar" href="javascript:void(0)">
+                                                <img src="https://scontent.ftlv6-1.fna.fbcdn.net/v/t1.0-9/12821461_10201660729516213_3092130293512963205_n.jpg?_nc_cat=106&ccb=2&_nc_sid=09cbfe&_nc_ohc=AcUmIn2JOkEAX8_jeeS&_nc_ht=scontent.ftlv6-1.fna&oh=25ec63a763c9844fb84460685a363162&oe=600F99D4" alt=""><i></i>
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">
+                                                <a id="2nd_msg" class="name">Omer </a>
+                                            </h4>
+                                            <div class="actions margin-top-10">
+                                                <button type="button" class="btn btn-danger btn-xs waves-effect waves-light"><i class="icon md-thumb-up" aria-hidden="true"></i>Like</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a class="avatar avatar" href="javascript:void(0)">
+                                                <img src="https://scontent.ftlv6-1.fna.fbcdn.net/v/t31.0-8/27788818_10210450313563806_4315107888310299538_o.jpg?_nc_cat=105&ccb=2&_nc_sid=09cbfe&_nc_ohc=JSIVxKmDZEwAX8m9QRj&_nc_ht=scontent.ftlv6-1.fna&oh=07a12890295228494d4a39ea593315fc&oe=600DAE62" alt=""><i></i>
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">
+                                                <a id="3rd_msg" class="name">Sapir </a>
+                                            </h4>
+                                            <div class="actions margin-top-10">
+                                                <button type="button" class="btn btn-danger btn-xs waves-effect waves-light"><i class="icon md-thumb-up" aria-hidden="true"></i>Like</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <button type="button" onclick="load_feed_news()" class="btn btn-block btn-primary waves-effect waves-light"><i class="icon md-chevron-down margin-right-5" aria-hidden="true"></i>Shuffle</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="container-fluid text-center">
+                <p></p>
+                <form class="form-inline">
+                    Write Here:
+                    <input type="text" class="form-control" size="50" id="email_add">
+                    <button type="button" class="btn btn-danger" onclick="">Add More News</button>
+                </form>
+            </footer>
+
+
+    </body>
+</html>

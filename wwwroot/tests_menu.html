@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="js/nav_functions.js"></script>
+
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+    
+  .carousel-inner img {
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+      max-height:300px;
+  }
+
+  </style>
+</head>
+<body>
+
+<!-- NAV BAR-->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#"></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="#" onclick="open_home_page()">Home</a></li>
+        <li class="active"><a href="#">Tests</a></li>
+        <li><a href="#" onclick="open_ask_us_page()">Ask us</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"  onclick="open_profile_page()"><span class="glyphicon glyphicon-log-in"></span> Profile</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <img src="https://photoshopstar.com/media/2008/08/202.jpg" alt="Image">
+        <div class="carousel-caption">
+          <h3>Tests Menu</h3>
+        </div>      
+    </div>
+</div>
+  
+<div class="container text-center">    
+<form action="/action_page.php">
+  <label for="gsearch">Enter Sport:</label>
+  <input type="input" id="test_string">
+  <button type="button" onclick="get_test()">Go to Test </button>
+</form>
+<br><br>
+<!-- Photo Grid -->
+<div class="row">
+     <div class="col-md-12">
+    <img src="pictures/weight.png" style="width:10%">
+    <img src="pictures/basketball.png" style="width:10%">
+     <img src="pictures/judo.svg" style="width:10%">
+    <img src="pictures/lamp.png" style="width:10%">
+    <img src="pictures/pingpong.jfif" style="width:10%">
+    <img src="pictures/swimming.png" style="width:10%">
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  function get_test(){
+    var sport_name = document.getElementById("test_string").value;
+      window.alert(sport_name);
+      window.location.href = "test_form.html";
+
+  }
+
+</script>
+</body>
+</html>

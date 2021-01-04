@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<script src="js/nav_functions.js"></script>
+
+<body>
+
+<h2>Test</h2>
+
+<form action="/action_page.php">
+  <label for="test_question">First Question:</label><br>
+  <input type="text" id="1st_question"><br>
+  <label for="test_answer">Your answer:</label><br>
+  <input type="text" id="1st_answer"><br><br>
+  <input type="button" value="Submit" onclick="submit_answers()">
+  <input type="button" value="Leave Test" onclick="open_tests_menu_page()">
+</form> 
+
+<script>
+	function submit_answers()
+	{
+		var user_answer = document.getElementById("1st_answer").value;
+		var correct_answer = "eden";
+  		if (user_answer== correct_answer)
+  		{
+  			window.alert("Correct!");
+
+  		}
+  		else
+  		{
+  			window.alert("Your answer- " + user_answer + ",  Correct answer- " + correct_answer + ".");
+  		}
+	}
+
+</script>
+
+</body>
+</html>

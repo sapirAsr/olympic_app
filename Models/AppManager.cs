@@ -25,8 +25,6 @@ namespace olympic_app.Models
         public List<Question> GetQuestions(string sport){
             return dBConnect.GetQuestions(sport);
         }
-
-
         public bool UserLogin(string username, string password){
             return dBConnect.Login(username, password);
         }
@@ -45,6 +43,10 @@ namespace olympic_app.Models
              return dBConnect.ChangePassword(username,password);
 
         }
+        public List<string> GetSportList(){
+            return dBConnect.GetSportList();           
+        }
+
 
     }
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<script src="js/nav_functions.js"></script>
+
+<body>
+
+<h2>Change Details</h2>
+
+<form action="/action_page.php">
+  <label for="Username">Username:</label><br>
+  <input type="text" id="Username"><br>
+  <label for="Password">Password:</label><br>
+  <input type="Password" id="Password"><br><br>
+  <input type="button" value="Save changes" onclick="submit_changes()">
+</form> 
+
+<script>
+	function submit_changes()
+	{
+    window.alert("here");
+		var new_username = document.getElementById("Username").value;
+    var new_password = document.getElementById("Password").value;
+    window.alert ("Username-"+new_username+", Password-"+new_password);
+	}
+
+</script>
+
+</body>
+</html>

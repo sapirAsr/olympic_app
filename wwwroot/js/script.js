@@ -45,6 +45,6 @@ function get_quiz(){
             } 
         }           
     };     
-    xhttp.open("GET", "https://localhost:5001/api/Quiz/Basketball", true);
+    xhttp.open("GET", "https://localhost:5001/api/Quiz/Tennis", true);
     xhttp.send();  
 }

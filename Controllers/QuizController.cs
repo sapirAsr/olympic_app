@@ -17,11 +17,18 @@ namespace olympic_app.Controllers
         {
             this.manager = manger;
         }
-        // GET: api/Feed
+        // GET: api/Feed.sport
         [HttpGet ("{sport}", Name = "Get")]
         public List<Question> GetQuestions(string sport)
         {
             return manager.GetQuestions(sport);
+        }
+
+        // GET: api/Feed
+        [HttpGet]
+        public List<string> GetSportList()
+        {
+            return manager.GetSportList();
         }
 
 

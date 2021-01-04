@@ -123,6 +123,10 @@ namespace olympic_app.DB
              return list;
            
         }
+        //TODO ON OMER
+        public List<string> GetSportList(){
+            return sportsList;
+        }
 
         public List<string> GeneratePosts(){
             List<string> posts = new List<string>();
@@ -294,12 +298,7 @@ namespace olympic_app.DB
         public List<Question> GetQuestions(string sport){
             List<Question> questions = new List<Question>();
             //q1 who's the best athlete in the given sport
-            //get the correcr answer
             List<string> theBestAthleteAnswers = TheBestXAthlete(sport, " AND  medal <> \"NA\"");
-            //get the id of the athlete
-            //string id = GetXByYWhereZFromAthletes("Athlete_id", "Name", theBestAthlete);
-            //get wrong answers
-            //List<string> wrongAnsersList = WrongsBestAthlete(sport, id);
             string question = "Who's the best athlete in the field of " + sport + "?\n Hint:The best athlete is the athlete who won the most medals.";
             Question q1 = new Question {QuestionString = question , CorrectAnswer = theBestAthleteAnswers[0], WrongAnswer1 = theBestAthleteAnswers[1],
                                         WrongAnswer2 = theBestAthleteAnswers[2], WrongAnswer3 = theBestAthleteAnswers[3], Sport = sport };
@@ -337,6 +336,7 @@ namespace olympic_app.DB
             return questions;
         }
 
+        /*
         public List<string> WrongsBestAthlete(string sport, string id){
             var queryString = "SELECT NAME FROM athletes INNER JOIN (SELECT Athlete_Id FROM (" +
             "SELECT Athlete_Id FROM (SELECT Athlete_Id, Medal FROM olympicapp.medals WHERE (event_id IN" + 
@@ -357,9 +357,10 @@ namespace olympic_app.DB
             
              return result;
 
-        }
+        }*/
+        
         public string GetXByYWhereZFromAthletes(string x, string y, string z){
-            var queryString = "SELECT " + x +" From olympicapp.athletes WHERE "+ y +" = \"" + z + "\"";;
+            var queryString = @"SELECT " + x +" From olympicapp.athletes WHERE "+ y +" = '" + z + "';";
             string result = "";
             MySqlCommand cmd = new MySqlCommand(queryString, connection);
             dataReader = cmd.ExecuteReader();

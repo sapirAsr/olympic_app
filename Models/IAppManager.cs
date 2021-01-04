@@ -14,7 +14,7 @@ namespace olympic_app.Models
         bool LikePost(string username, int post_id);
         bool DeleteUser(string username, string password, bool isAdmin);
         bool ChangePassword(string username, string password);
-
+        List<string> GetSportList();
         List<Question> GetQuestions(string sport);
 
 
