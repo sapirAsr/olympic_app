@@ -128,7 +128,9 @@ namespace olympic_app.DB
         public List<string> GetSportList(){
             return sportsList;
         }
-
+        public List<string> GetGamesList(){
+            return gamesList;
+        }
         public List<string> GeneratePosts(){
             List<string> posts = new List<string>();
             List<List<string>> temp = new List<List<string>>();           
@@ -316,7 +318,7 @@ namespace olympic_app.DB
             var random = new Random();
             int index = random.Next(gamesList.Count);
             string randomGame = gamesList[index];
-            string country = CountryOfOlympicGame(randomGame);
+            string country = LocationOfOlympicGame(randomGame)[0];
             wrongAnsersList = WrongCountries(country);
             question = "In which country the " + randomGame + "  games took place?";
             Question q3 = new Question {QuestionString = question , CorrectAnswer = country, WrongAnswer1 = wrongAnsersList[0],
@@ -398,17 +400,18 @@ namespace olympic_app.DB
 
         }
 
-        public string CountryOfOlympicGame(string game){
-            var queryString = "SELECT Country FROM countries WHERE City =(SELECT City FROM olympic_games WHERE Game = \"" + game + "\")";;
-            string result = "";
+        public List<string> LocationOfOlympicGame(string game){
+            var queryString = "SELECT Country,City FROM countries WHERE City =(SELECT City FROM olympic_games WHERE Game = \"" + game + "\")";;
+            List<string> result = new List<string>();
             MySqlCommand cmd = new MySqlCommand(queryString, connection);
             dataReader = cmd.ExecuteReader();
 
             //Read the data and store the name in string
             while (dataReader.Read())
             {
-                result += dataReader["Country"] + "";
-                          
+                result.Add(dataReader["Country"] + "");
+                result.Add(dataReader["City"] + "");
+
             }
             //close Data Reader
              dataReader.Close();
@@ -583,6 +586,26 @@ namespace olympic_app.DB
            
         }
         
+        //TODO!!!!!!!!!!!!!
+        public List<string> GetAdminList(string username){
+            var queryString = "";
+            List<string> result = new List<string>();
+            MySqlCommand cmd = new MySqlCommand(queryString, connection);
+            dataReader = cmd.ExecuteReader();
+
+            //Read the data and store the name in string
+            while (dataReader.Read())
+            {
+                result.Add(dataReader["Name"] + "");
+                          
+            }
+            //close Data Reader
+             dataReader.Close();
+            
+             return result;
+
+        }
+
          //likes
         public bool LikePost(string username, int post_id){
             string queryString ="INSERT INTO olympicapp.likes (User_name,Post_id)"+

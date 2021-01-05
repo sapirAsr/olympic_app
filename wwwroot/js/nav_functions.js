@@ -1,6 +1,8 @@
-function open_sign_in_page() {
-  var x = document.getElementById("myGrid");  //CHANGE TO SIGN IN PAGE!!!!!
-  window.location.href = "olympic_main.html";
+
+
+function open_login_page() {
+  var x = document.getElementById("myGrid");
+  window.location.href = "login.html";
 }
 
 
@@ -25,4 +27,8 @@ function open_home_page() {
 
 function open_profile_page() {
   window.location.href = "profile.html";
+}
+
+function open_first_page() {
+    window.location.href = "first_page.html";
 }

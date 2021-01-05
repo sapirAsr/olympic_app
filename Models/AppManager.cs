@@ -13,18 +13,42 @@ namespace olympic_app.Models
         private DBConnect dBConnect;
 
         public AppManager(){
+
             dBConnect = new DBConnect();
             dBConnect.OpenConnection();
         }
+        //feed
         public List<Post> getPosts()
         { 
             List< Post > list = dBConnect.FeedPosts(); 
             return list;
         }
+        //search
+         public List<string> GetGamesList()
+        { 
+            List< string > list = dBConnect.GetGamesList(); 
+            return list;
+        }
+        public List<string> GetSportList(){
+            return dBConnect.GetSportList();           
+        }
+        public string GetBestAthlete(string sport){
+            return dBConnect.TheBestXAthlete(sport, " AND  medal <> \"NA\"")[0];           
+        }
 
+        public List<string> GetLocationGame(string game){
+           return dBConnect.LocationOfOlympicGame(game);           
+
+        }
+        public List<string> GetTheMostXAthlete(string sport, string parameter, string order){
+            return dBConnect.TheMostXAthlete(sport, parameter, order)[0];           
+        }
+
+        //quiz
         public List<Question> GetQuestions(string sport){
             return dBConnect.GetQuestions(sport);
         }
+        //users
         public User UserLogin(string username, string password){
             return dBConnect.Login(username, password);
         }
@@ -43,12 +67,12 @@ namespace olympic_app.Models
              return dBConnect.ChangePassword(username,password);
 
         }
-        public List<string> GetSportList(){
-            return dBConnect.GetSportList();           
-        }
         public bool UpdateAdmin(User user,string sport, bool isAdmin)
         {
             return dBConnect.UpdateAdmin(user, sport, isAdmin);
+        }
+        public List<string> GetAdminList(string username){
+            return dBConnect.GetAdminList(username);
         }
 
 

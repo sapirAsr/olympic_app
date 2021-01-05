@@ -8,16 +8,25 @@ namespace olympic_app.Models
 {
     public interface IAppManager
     {
-        List<Post> getPosts();
+        //feed
+        List<Post> getPosts();   
+        //search
+        List<string> GetSportList();
+        List<string> GetGamesList();
+        string GetBestAthlete(string sport);
+        List<string> GetLocationGame(string game);
+
+        //quiz
+        List<Question> GetQuestions(string sport);
+        //users
         User UserLogin(string username, string password);
         bool UserSignup(string username, string password);
         bool LikePost(string username, int post_id);
         void DeleteUser(string username);
         bool ChangePassword(string username, string password);
         bool UpdateAdmin(User user,string sport, bool isAdmin);
-        List<string> GetSportList();
-        List<Question> GetQuestions(string sport);
-
+        List<string> GetAdminList(string username);
+        List<string> GetTheMostXAthlete(string sport, string parameter, string order);
 
     }
 }

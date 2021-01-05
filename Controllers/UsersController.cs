@@ -56,11 +56,16 @@ namespace olympic_app.Controllers
         }
 
         [HttpPost]
-        // /api/Users/sign_up
+        // /api/Users/admin
         [ActionName("admin")]
         public bool UpdateAdmin(User user,string sport, bool isAdmin)
         {
             return manager.UpdateAdmin(user, sport, isAdmin);
+        }
+
+        public List<string> GetAdminList(string username){
+            return manager.GetAdminList(username);
+
         }
 
     }

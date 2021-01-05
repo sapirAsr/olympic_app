@@ -91,9 +91,10 @@
 
 <script type="text/javascript">
   function get_test(){
-    var sport_name = document.getElementById("test_string").value;
-      window.alert(sport_name);
-      window.location.href = "test_form.html";
+      var sport_name = document.getElementById("test_string").value;
+      sessionStorage.setItem('sport_field', sport_name);
+      window.alert(sessionStorage.getItem('sport_field'));
+      window.location.href = "navbar.html";
 
   }
 
