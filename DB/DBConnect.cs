@@ -107,7 +107,7 @@ namespace olympic_app.DB
            }
             atributesStr = atributesStr.Remove(atributesStr.Length - 1);
 
-            var queryString = "SELECT " + atributesStr + " FROM " + table + ";";
+            var queryString = "SELECT " + atributesStr + " FROM " + table + " ORDER BY RAND() LIMIT 20;";
             MySqlCommand cmd = new MySqlCommand(queryString, connection);
             dataReader = cmd.ExecuteReader();
 

@@ -68,16 +68,19 @@ namespace olympic_app.Controllers
         }
 
         [HttpGet ("{query}")]
-        // /api/Users/query/Basketball&Height&ASC
+        // /api/Users/filter/athletes&Name
         [ActionName("filter")]
-        public List<string> Filter(string query)
+        public List<string>[] Filter(string query)
         {
-            string[] temp = query.Split('&',3);
-            //sport,"Height","ASC"
-            string sport = temp[0];
-            string parameter = temp[1];
-            string order = temp[2];
-            return manager.GetTheMostXAthlete(sport, parameter, order);
+            string[] temp = query.Split('&');
+            string table = temp[0];
+            List<string> atributes = new List<string>();
+            for (int i = 1; i < temp.Length; i++)
+            {
+                atributes.Add(temp[i]);
+            }
+        
+            return manager.BasicFilter(table,atributes);
 
         }
 

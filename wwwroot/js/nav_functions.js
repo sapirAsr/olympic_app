@@ -5,14 +5,13 @@ function open_login_page() {
   window.location.href = "login.html";
 }
 
-
 function open_sign_up_page() {
   var x = document.getElementById("myGrid");
   window.location.href = "sign_up.html";
 }
 
 function open_ask_us_page() {
-  window.location.href = "ask_us2.html";
+  window.location.href = "search_page.html";
 }
 
 

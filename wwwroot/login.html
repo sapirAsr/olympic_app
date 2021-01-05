@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="css/login.css" rel="stylesheet" media="all">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="js/login.js"></script>
+<script src="js/nav_functions.js"></script>
+
 </head>
 <body>
 
 <h2>Login To Olympics!</h2>
 
-<form action="api/Users/login" method="post">
-  <div class="imgcontainer">
-    <img src="lib/olympics_logo.png" alt="Avatar" class="avatar">
-  </div>
-
+<form id="Login_Form">
   <div class="container">
     <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="Username" required>
+    <input id="Username" type="text" placeholder="Enter Username" name="Username" required>
 
     <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="Password" required>
+    <input id="Password" type="password" placeholder="Enter Password" name="Password" required>
         
-    <button type="submit">Login</button>
+    <button onclick="login()" id="Login_Btn">Login</button>
     <label>
       <input type="checkbox" checked="checked" name="remember"> Remember me
     </label>

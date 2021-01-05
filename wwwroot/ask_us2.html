@@ -1,40 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Ask Us</title>
+  <title>Search</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="js/nav_functions.js"></script>
-
-  <style>
-    /* Remove the navbar's default margin-bottom and rounded borders */ 
-    .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-    }
-    
-    /* Add a gray background color and some padding to the footer */
-    footer {
-      background-color: #f2f2f2;
-      padding: 25px;
-    }
-    
-  .carousel-inner img {
-      width: 100%; /* Set width to 100% */
-      margin: auto;
-      max-height:300px;
-  }
-
-  </style>
 </head>
 <body>
-
 <!-- NAV BAR-->
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -58,7 +39,6 @@
     </div>
   </div>
 </nav>
-
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
@@ -90,19 +70,6 @@
       </div>
     </div>
   </div>
-<script>
-  function filter_pressed() {
-  var query_result = document.getElementById("result_content");
-    var n = document.getElementById("noam");
-    n.textContent = "filter questions";
-  query_result.textContent = "filter result";
-}
-
-function whos_the_best_pressed(){
-   var query_result = document.getElementById("result_content");
-  query_result.textContent = "whos the best result";
-}
-</script>
 </body>
-
+<script src="js/search.js"></script>
 </html>

@@ -22,14 +22,17 @@ namespace olympic_app.Controllers
             this.manager = manger;
         }
         
-        [HttpPost]
+        [HttpGet ("{username}")]
         // /api/Users
         [ActionName("login")]
 
         //returns user with the info if this user is admin      
-        public User Post(User user)
+        public User Post(string username)
         {
-            return manager.UserLogin(user.Username, user.Password);
+            string[] temp = username.Split('&', 2);
+            string user_name = temp[0];
+            string password = temp[1];
+            return manager.UserLogin(user_name, password);
         }
         
         [HttpPost]
