@@ -36,8 +36,8 @@ namespace olympic_app.Models
              return dBConnect.LikePost(username,post_id);
         }
     
-        public bool DeleteUser(User user){
-             return dBConnect.DeleteUser(user);
+        public void DeleteUser(string username){
+            dBConnect.DeleteUser(username);
         }
         public bool ChangePassword(string username, string password){
              return dBConnect.ChangePassword(username,password);

@@ -6,6 +6,8 @@ using System.Data.SqlClient;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using olympic_app.Models;
+using System.Linq;
+
 
 namespace olympic_app.DB
 {  
@@ -500,38 +502,40 @@ namespace olympic_app.DB
                                     
         }
 
-        public bool DeleteUser(User user){
-            string queryString =" DELETE FROM olympicapp.users WHERE User_name = \""+user.Username+"\" AND Password = \""+user.Password+"\"";
+        public void DeleteUser(string username){
+            // is admin
+            bool isAdmin = false;
+            if (username.Last() == '&'){
+                isAdmin = true;
+                username = username.Remove(username.Length - 1);
+            }
+            string queryString =" DELETE FROM olympicapp.users WHERE User_name = \""+username+"\"";
             MySqlCommand cmd = new MySqlCommand(queryString, connection);
             try
             {
                     dataReader = cmd.ExecuteReader();
                     while (dataReader.Read()) {}
                     dataReader.Close();
-                    return true;
             }
             catch (MySqlException ){
                         
                     Console.WriteLine("error while deleting this user");
             }
-            if(user.isAdmin){
-                queryString =" DELETE FROM olympicapp.admin_premission WHERE User_name = \"" + user.Username + "\";";
+            if(isAdmin){
+                queryString =" DELETE FROM olympicapp.admin_premission WHERE User_name = \"" + username + "\";";
                 cmd = new MySqlCommand(queryString, connection);
                 try
                 {
                         dataReader = cmd.ExecuteReader();
                         while (dataReader.Read()) {    }
                         dataReader.Close();
-                        return true;
                 }
                 catch (MySqlException )
                 {
                                 
                         Console.WriteLine("error while deleting this admin user");
                 }
-            }
-            return false;
-                        
+            }                        
         }
         public bool ChangePassword(string username, string new_password){
       

@@ -5,11 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using olympic_app.Models;
+using System.Text.Json;
+using Microsoft.Extensions.Caching.Memory;
+
+
 namespace olympic_app.Controllers
 
 {
     [Route("api/[controller]/[action]")]
-    //[ApiController]
+    [ApiController]
     public class UsersController : ControllerBase
     {
         private IAppManager manager;
@@ -42,13 +46,12 @@ namespace olympic_app.Controllers
         {
             return manager.ChangePassword(user.Username, user.Password);
         }
-        [HttpDelete]
+        [HttpDelete("{username}")]
         [ActionName("delete")]
-
         // /api/Users
-        public bool DeleteUser(User user)
+        public void DeleteUser(string username)
         {
-            return manager.DeleteUser(user);
+            manager.DeleteUser(username);
         }
 
         [HttpPost]

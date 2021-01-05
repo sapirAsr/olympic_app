@@ -12,7 +12,7 @@ namespace olympic_app.Models
         User UserLogin(string username, string password);
         bool UserSignup(string username, string password);
         bool LikePost(string username, int post_id);
-        bool DeleteUser(User user);
+        void DeleteUser(string username);
         bool ChangePassword(string username, string password);
         bool UpdateAdmin(User user,string sport, bool isAdmin);
         List<string> GetSportList();
