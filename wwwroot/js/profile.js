@@ -5,3 +5,7 @@ function delete_user(){
         });     
       
 }
+
+function submit_changes() {
+    window.alert ("Are you sure you want to save changes?");    
+}

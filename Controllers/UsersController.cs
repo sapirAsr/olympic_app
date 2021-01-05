@@ -13,7 +13,7 @@ namespace olympic_app.Controllers
 
 {
     [Route("api/[controller]/[action]")]
-    [ApiController]
+    //[ApiController]
     public class UsersController : ControllerBase
     {
         private IAppManager manager;
@@ -37,6 +37,7 @@ namespace olympic_app.Controllers
         [ActionName("sign_up")]
         public bool SignupPost(User user)
         {
+            //User user = new User();
             return manager.UserSignup(user.Username, user.Password);
         }
         [HttpPost]

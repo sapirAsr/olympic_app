@@ -539,7 +539,7 @@ namespace olympic_app.DB
         }
         public bool ChangePassword(string username, string new_password){
       
-            string queryString =" UPDATE olympicapp.users SET Password = \""+ new_password +"\"' WHERE User_name = \""+ username +"\"";
+            string queryString =" UPDATE olympicapp.users SET Password = \""+ new_password +"\" WHERE User_name = \""+ username +"\";";
             MySqlCommand cmd = new MySqlCommand(queryString, connection);
             try
             {
@@ -562,7 +562,7 @@ namespace olympic_app.DB
             string queryString = "";
             if (!isAdmin)
             {
-                queryString = "INSERT INTO admin_premission (User_name,"+ sport +") VALUES(\"" + user.Username + "\", 1)";  
+                queryString = "INSERT INTO admin_premission (User_name,"+ sport +") VALUES(\"" + user.Username + "\", 1);";  
             } 
             else{
                 queryString = "UPDATE olympicapp.admin_premission SET "+ sport +"= 1 WHERE User_name = " + user.Username + "\";";
