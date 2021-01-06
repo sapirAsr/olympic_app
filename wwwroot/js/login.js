@@ -3,6 +3,8 @@ var userLogin;
 
 function login() {
     var username = document.getElementById('Username').value;
+    console.log("blaa");
+    sessionStorage.setItem('Username', username);
     var password = document.getElementById('Password').value;
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -10,14 +12,48 @@ function login() {
             if (this.status === 200) {
                 console.log(this.responseText);
                 userLogin = JSON.parse(this.responseText);
-                open_home_page();
-                
-            } else {                   
+                if (userLogin.username != null && userLogin.password) {
+                    open_home_page();
+                }
+                else {
+                    alert("You need to fill this form.\n Or you can go back to homepage.");
+                }
+
+
+            } else {
                 console.log("Error", xhttp.statusText);
                 alert(xhttp.statusText);
-            } 
-        }           
-    };     
+            }
+        }
+    };
     xhttp.open("GET", "https://localhost:5001/api/Users/login/" + username + "&" + password, true);
+    xhttp.send();
+}
+
+function signup() {
+    var username = document.getElementById('Username').value;
+    sessionStorage.setItem('Username', username);
+    var password = document.getElementById('Password').value;
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            if (this.status === 200) {
+                console.log(this.responseText);
+                userLogin = this.responseText;
+                if (userLogin) {
+                    open_home_page();
+                }
+                else {
+                    alert("Username already exists.\n");
+                }
+
+
+            } else {
+                console.log("Error", xhttp.statusText);
+                alert(xhttp.statusText);
+            }
+        }
+    };
+    xhttp.open("POST", "https://localhost:5001/api/Users/sign_up/" + username + "&" + password, true);
     xhttp.send();
 }

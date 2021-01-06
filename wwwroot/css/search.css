@@ -17,6 +17,15 @@ body,h1,h2,h3,h4,h5,h6 {
     background-color: transparent;
     border: 0;
 }
-button.w3-button.w3-dark-grey {
+button.w3-button.w3-dark-grey, button.w3-button.w3-light-grey {
     float: right;
+}
+select {
+    margin: 10px;
+}
+div#atributes {
+    width: 85%;
+}
+.zmdi{
+    margin-right: 10px;
 }

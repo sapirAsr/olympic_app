@@ -23,6 +23,12 @@ namespace olympic_app.Models
             List< Post > list = dBConnect.FeedPosts(); 
             return list;
         }
+        public int GetNumberOfLikes(string post_id)
+        {
+            return dBConnect.GetNumberOfLikes(post_id);
+        } 
+        
+        
         //search
          public List<string> GetGamesList()
         { 
@@ -32,21 +38,32 @@ namespace olympic_app.Models
         public List<string> GetSportList(){
             return dBConnect.GetSportList();           
         }
+        public List<string> GetTeamsList(){
+            return dBConnect.GetTeamsList();           
+        }
+        public List<string> GetHeightsList(){
+            return dBConnect.GetHeightsList();           
+        }
+        public List<string> GetWeightsList(){
+            return dBConnect.GetWeightsList();           
+        }
+        public List<string> GetBirthYears(){
+            return dBConnect.GetBirthYears();           
+        }
         public string GetBestAthlete(string sport){
             return dBConnect.TheBestXAthlete(sport, " AND  medal <> \"NA\"")[0];           
         }
 
         public List<string> GetLocationGame(string game){
            return dBConnect.LocationOfOlympicGame(game);           
-
         }
         public List<string> GetTheMostXAthlete(string sport, string parameter, string order){
             return dBConnect.TheMostXAthlete(sport, parameter, order)[0];           
         }
 
         
-        public List <string> [] BasicFilter(string table, List<string> atributes) {
-            return dBConnect.BasicFilter(table, atributes);
+        public List <string>  BasicFilter(Dictionary<string, string> dictAtr) {
+            return dBConnect.BasicFilter(dictAtr);
         }
 
 
@@ -58,11 +75,11 @@ namespace olympic_app.Models
         public User UserLogin(string username, string password){
             return dBConnect.Login(username, password);
         }
-        public bool UserSignup(string username, string password){
+        public User UserSignup(string username, string password){
             return dBConnect.NewUserRegister(username, password);
         }
     
-        public bool LikePost(string username, int post_id){
+        public bool LikePost(string username, string post_id){
              return dBConnect.LikePost(username,post_id);
         }
     
@@ -73,7 +90,7 @@ namespace olympic_app.Models
              return dBConnect.ChangePassword(username,password);
 
         }
-        public bool UpdateAdmin(User user,string sport, bool isAdmin)
+        public bool UpdateAdmin(string user,string sport, bool isAdmin)
         {
             return dBConnect.UpdateAdmin(user, sport, isAdmin);
         }

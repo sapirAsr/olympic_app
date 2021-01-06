@@ -37,6 +37,34 @@ namespace olympic_app.Controllers
         {
             return manager.GetGamesList();
         }
+        [HttpGet]
+        [ActionName("teamslist")]
+
+        public List<string> GetTeams()
+        {
+            return manager.GetTeamsList();
+        }
+        [HttpGet]
+        [ActionName("heightslist")]
+
+        public List<string> GetHeights()
+        {
+            return manager.GetHeightsList();
+        }
+        [HttpGet]
+        [ActionName("weightslist")]
+
+        public List<string> GetWeights()
+        {
+            return manager.GetWeightsList();
+        }
+        [HttpGet]
+        [ActionName("yearslist")]
+
+        public List<string> GetBirthYears()
+        {
+            return manager.GetBirthYears();
+        }
 
         [HttpGet ("{sport}")]
         // /api/Users/best_athlete
@@ -68,19 +96,20 @@ namespace olympic_app.Controllers
         }
 
         [HttpGet ("{query}")]
-        // /api/Users/filter/athletes&Name
+        // /api/Users/filter/search=athletes&Team=china
         [ActionName("filter")]
-        public List<string>[] Filter(string query)
+        public List<string> Filter(string query)
         {
-            string[] temp = query.Split('&');
-            string table = temp[0];
-            List<string> atributes = new List<string>();
-            for (int i = 1; i < temp.Length; i++)
+            Dictionary<string, string> dictAtr = new Dictionary<string, string>();
+            string[] tempSplit = query.Split('&');
+            for (int i = 0; i < tempSplit.Length; i++)
             {
-                atributes.Add(temp[i]);
+                string h = tempSplit[i];
+                string[] temp = h.Split('=');
+                dictAtr.Add(temp[0], temp[1]);
+
             }
-        
-            return manager.BasicFilter(table,atributes);
+            return manager.BasicFilter(dictAtr);
 
         }
 

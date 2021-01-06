@@ -1,5 +1,4 @@
 
-
 function open_login_page() {
   var x = document.getElementById("myGrid");
   window.location.href = "login.html";
@@ -29,5 +28,6 @@ function open_profile_page() {
 }
 
 function open_first_page() {
-    window.location.href = "first_page.html";
+  window.location.href = "first_page.html";
 }
+
