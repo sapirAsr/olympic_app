@@ -13,8 +13,8 @@
                     str += "<p class='text-muted text-sm'><i class='fa fa-mobile fa-lg'></i>" + feedPost[i].date.slice(0,10) + "</p></div>";
                     str += "<p>" + feedPost[i].content + "</p>";
                     str += "<div class='pad-ver'><div class='btn-group'>";
-                    str += "<a class='btn btn-sm btn-default btn-hover-success' id= 'like" + feedPost[i].postId + "'><i class='zmdi zmdi-thumb-up' onclick = like(" + feedPost[i].postId + ")></i></a>";
-                    str += "<a class='btn btn-sm btn-default btn-hover-success' id= 'dislike" + feedPost[i].postId + "'><i class='zmdi zmdi-thumb-down' onclick = dislike('" + feedPost[i].postId + "')></i></a></div >";
+                    str += "<a class='btn btn-sm btn-default btn-hover-success' onclick = like(" + feedPost[i].postId + ") id='like" + feedPost[i].postId + "'><i class='zmdi zmdi-thumb-up'></i></a>";
+                    str += "<a class='btn btn-sm btn-default btn-hover-success' onclick = dislike('" + feedPost[i].postId + "') id= 'dislike" + feedPost[i].postId + "'><i class='zmdi zmdi-thumb-down'></i></a></div >";
                     str += "<a class='small'><i class='fa fa-thumbs-up'></i>  <p id='" + feedPost[i].postId + "'>" + feedPost[i].likes + " Liked this!</p></a></div></div></div></div><span></span>";
                     $("#feed-panel").append(str);
 
