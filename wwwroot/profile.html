@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Ask Us</title>
+    <title>Profile</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -15,6 +15,11 @@
     <script src="js/nav_functions.js"></script>
     <script src="js/profile.js"></script>
 </head>
+<style>
+    .profile-content {
+        background-color: lightblue;
+    }
+</style>
  <body onload="show_username()">
    <!--
 User Profile Sidebar by @keenthemes
@@ -65,27 +70,29 @@ Licensed under MIT
         </div>
         <!-- END SIDEBAR BUTTONS -->
         <!-- SIDEBAR MENU -->
-       <!--  <div class="profile-usermenu">
+         <div class="profile-usermenu">
           <ul class="nav">
             <li>
-              <a href="#"  id="settings_tab" onclick="func()">
+              <a href="#"  id="settings_tab" onclick="open_change_details_page()">
               <i class="glyphicon glyphicon-user" ></i>
               Account Settings </a>
             </li>
             <li>
-              <a href="#" target="_blank">
+              <a href="#" target="_blank" onclick="open_admin_list_page()">
               <i class="glyphicon glyphicon-ok"></i>
               Your Tests </a>
             </li>
           </ul>
-        </div> -->
+        </div> 
         <!-- END MENU -->
       </div>
     </div>
     <div class="col-md-9">
-            <div class="profile-content" id="profile_content" >
-            <iframe src="change_details.html" style="border:none;" height="300px" name="targetframe">
-            </iframe>
+            <div class="profile-content" id="profile_content">
+                <iframe id="show_details" style="border:none;" height="300px" name="targetframe"></iframe>
+
+            <!--<iframe src="change_details.html" style="border:none;" height="300px" name="targetframe">
+            </iframe>-->
             </div>
     </div>
   </div>
