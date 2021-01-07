@@ -9,6 +9,7 @@ namespace olympic_app.Controllers
 
 {
     [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class FeedController : ControllerBase
     {
@@ -23,21 +24,32 @@ namespace olympic_app.Controllers
         {
             return manager.getPosts();
         }
-        [HttpGet ("{post_id}")]
+        [HttpGet("{post_id}")]
         // /api/Feed/14
         public int GetNumberOfLikes(string post_id)
         {
             return manager.GetNumberOfLikes(post_id);
-        } 
-        
-        [HttpPost ("{details}")]
+        }
+
+        [HttpPost("{details}")]
         // /api/Feed/sapir&14
+        [ActionName("like")]
         public bool LikePost(string details)
         {
             string[] temp = details.Split('&');
             string username = temp[0];
             string post_id = temp[1];
-            return manager.LikePost(username,post_id);
+            return manager.LikePost(username, post_id);
+        }
+        [HttpPost("{details}")]
+        // /api/Feed/sapir&14
+        [ActionName("dislike")]
+        public bool DislikePost(string details)
+        {
+            string[] temp = details.Split('&');
+            string username = temp[0];
+            string post_id = temp[1];
+            return manager.DislikePost(username, post_id);
         }
     }
 }

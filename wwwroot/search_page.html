@@ -66,43 +66,61 @@
       <div class="w3-bar w3-black">
         <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Filter');"><i class="zmdi zmdi-search"></i>Filter</button>
         <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Best_Athlete');"><i class="zmdi zmdi-star"></i>Best Athlete</button>
-        <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Locations');"><i class="zmdi zmdi-pin"></i>Locations</button>
+        <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Locations');"><i class="zmdi zmdi-globe"></i>Locations</button>
         <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'TheMost');"><i class="zmdi zmdi-fire"></i>The Most</button>
-      </div>
-  
+        <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Medal');"><i class="zmdi zmdi-fire"></i>Medal Winners</button>  
+    </div>
       <!-- Tabs -->
       <div id="Filter" class="w3-container w3-white w3-padding-16 myLink">
         <p><button class="w3-button w3-light-grey" onclick="resetSelects()" >Reset Search</button></p>
         <h3>Filter</h3> 
         <div id="atributes">  
-        <select id="Search"> 
+        <select id="Search" required> 
           <option value="">I want to see..</option> 
           <option value="Athletes">Athletes</option> 
         </select>
           <select id="Sex"> 
             <option value="">Choose Sex</option> 
-            <option value="Male">Male</option> 
-            <option value="Female">Female</option> 
+            <option value="='M'">Male</option> 
+            <option value="='F'">Female</option> 
           </select> 
           <select id="Team"> 
             <option value="">Choose Team</option> 
-          </select> 
+          </select>
+          <p>that are...</p>
+          <select id="parameterHeight" required>
+            <option value="">Choose parameter..</option>  
+            <option value="=">equal</option> 
+            <option value=">">grater</option> 
+            <option value="<">lesser</option> 
+          </select>
           <select id="Height"> 
             <option value="">Choose Height</option> 
-  
+          </select>
+          <select id="parameterWeight" required>
+            <option value="">Choose parameter..</option>  
+            <option value="=">equal</option> 
+            <option value=">">grater</option> 
+            <option value="<">lesser</option> 
           </select>
           <select id="Weight"> 
             <option value="">Choose Weight</option> 
+          </select>
+          <select id="parameterBirth" required>
+            <option value="">Choose parameter..</option>  
+            <option value="=">equal</option> 
+            <option value=">">grater</option> 
+            <option value="<">lesser</option> 
           </select>
           <select id="Birth_year"> 
             <option value="">Choose Birth Year</option>
           </select>
           <select class="Select_Sport" id="FilterSport">
-            <option selected value="base">Choose Sport</option>
+            <option value="">Choose Sport</option>
           </select>
         </div>
         <p><button class="w3-button w3-dark-grey" onclick="getAtrToSearch()">Search and find</button></p>
-        <span class="w3-tag w3-deep-orange answer" id="answer_filter"></span> 
+        <div class="w3-tag w3-deep-orange answer data-mdb-perefect-scrollbar overflow-auto" id="answer_filter"></div> 
       </div>
       <div id="Best_Athlete" class="w3-container w3-white w3-padding-16 myLink">
         <p><button class="w3-button w3-light-grey" onclick="resetSelects()" >Reset Search</button></p>
@@ -128,9 +146,9 @@
       <div id="TheMost" class="w3-container w3-white w3-padding-16 myLink">
         <p><button class="w3-button w3-light-grey" onclick="resetSelects()" >Reset Search</button></p>
         <h3>Find Some Intresting Facts</h3>
-        <p>Choose a sport ad fact and see the results.</p>
+        <p>Choose a sport and a fact and see the results.</p>
         <select class="Select_Sport" id="MostSport">
-          <option selected value="base">Choose Sport</option>
+          <option selected value="">Choose Sport</option>
         </select>
         <select id="Fact"> 
           <option value="">Choose Fact</option>
@@ -141,6 +159,28 @@
         </select>
         <p><button class="w3-button w3-dark-grey" onclick="getThefact()">Find!</button></p>
         <span class="w3-tag w3-deep-orange answer" id="answer_most"></span>
+      </div>
+      <div id="Medal" class="w3-container w3-white w3-padding-16 myLink">
+        <p><button class="w3-button w3-light-grey" onclick="resetSelects()" >Reset Search</button></p>
+        <h3>Find Medal Winners!</h3>
+        <p>Choose a sport and medal.</p>
+        <select class="Select_Sport" id="MedalSport">
+          <option selected value="">Choose Sport</option>
+        </select>
+        <select id="MedalSelect"> 
+          <option value="">Choose Medal</option>
+          <option value="='Gold'">Gold</option>
+          <option value="='Silver'">Silver</option> 
+          <option value="='Bronze'"> Bronze</option>  
+        </select>
+        <p>optional:</p>
+        <select id="SexMedal"> 
+            <option value="">Choose Sex</option> 
+            <option value="='M'">Male</option> 
+            <option value="='F'">Female</option> 
+          </select> 
+        <p><button class="w3-button w3-dark-grey" onclick="getTheMedal()">Find!</button></p>
+        <span class="w3-tag w3-deep-orange answer" id="answer_medal"></span>
       </div>
     </div>
 </div>

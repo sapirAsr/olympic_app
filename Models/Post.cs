@@ -11,6 +11,7 @@ namespace olympic_app.Models
         public string Content { get; set; }
         public int Likes { get; set; }
         public DateTime Date { get; set; }
+        public string Sport { get; set; }
 
     }
 }

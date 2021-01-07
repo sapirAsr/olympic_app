@@ -47,7 +47,7 @@ namespace olympic_app.DB
                 gamesList = SelectColFromTable("Game","olympic_games", "");
                 teamsList =  SelectColFromTable("Team","athletes","");
                 heightsList =  SelectColFromTable("Height","athletes"," WHERE Height<>'NA' ORDER BY Height ASC");
-                weightsList =  SelectColFromTable("Weight","athletes", " WHERE Weight<>'NA' ORDER BY Weight ASC");
+                weightsList =  SelectColFromTable("Weight","athletes", " WHERE Weight<>'NA' ORDER BY cast(Weight as unsigned)  ASC");
                 yearsList =  SelectColFromTable("Birth_year","athletes"," WHERE Birth_year<>'NA' ORDER BY Birth_year ASC");
 
                 return true;
@@ -106,18 +106,15 @@ namespace olympic_app.DB
             string selectStr = "";
             string table = "";
             // handle which col we select and from where and change atr to match with the schema
-            if (dictAtr["Search"] == "Athletes"){
+            //if (dictAtr["Search"] == "Athletes"){
                 selectStr = "Name";
                 table = "Athletes";
-            }
-            if (dictAtr["Sex"] == "Male"){
-                dictAtr["Sex"] = "M";
-            } else if (dictAtr["Sex"] == "Female"){
-                dictAtr["Sex"] = "F";
-            }
+            //}
             //after this handle we remove it
-            dictAtr.Remove("Search");
-             if (dictAtr["Sport"] != "base"){
+            if (dictAtr.ContainsKey("Search")){
+                dictAtr.Remove("Search");
+            }
+             if (dictAtr.ContainsKey("Sport")){
                  table = "(SELECT Athlete_id, Game_id, e.Event_id, Medal, Name, Sex, Height, Weight, Team,Birth_year,event, Sport " +
                             "FROM event_types AS e " +
                             "LEFT JOIN "+
@@ -125,18 +122,15 @@ namespace olympic_app.DB
                             "FROM medals AS m "+
                             "LEFT JOIN athletes AS a ON a.Athlete_id= m.Athlete_id) AS temp "+
                             "ON temp.Event_id= e.Event_id) AS temp";
-            } else {
-                dictAtr.Remove("Sport");
-            }
+            } 
            //handle the where statment 
             string whereVals = "";
             foreach(KeyValuePair<string, string> pair in dictAtr){
                 if (pair.Value.Length > 0){
                     Console.WriteLine(pair);
                     whereVals += pair.Key;
-                    whereVals += " = '";
                     whereVals += pair.Value;
-                    whereVals += "' AND ";
+                    whereVals += " AND ";
                 }
 
             }
@@ -153,10 +147,14 @@ namespace olympic_app.DB
             }
             //close Data Reader
             dataReader.Close();
-
-             return result;
-           
+            if (result.Count == 0){
+                result.Add("Sorry, there are no results that match this search.\n Search for something else!");
+            }
+            return result;
         }
+
+
+
         public List<string> GetSportList(){
             return sportsList;
         }
@@ -179,7 +177,9 @@ namespace olympic_app.DB
         
         public void GeneratePosts(){
             List<string> posts = new List<string>();
-            List<List<string>> temp = new List<List<string>>();           
+            List<List<string>> temp = new List<List<string>>();
+            List<string> check = new List<string>();           
+           
             // choosing a random sport
             int numberOfPosts = 1;
             for (int i = 0; i < numberOfPosts; i++)
@@ -188,10 +188,13 @@ namespace olympic_app.DB
                 int index = random.Next(sportsList.Count);
                 string sport = sportsList[index];
                 string result = "The best athlete in the field of " + sport + " is ";
-                result += TheBestXAthlete(sport, " AND  medal <> \"NA\"")[0];
-                result += ".\n The best athlete is the athlete who won the most medals.";
-                posts.Add(result);
-                InsertIntoFeedTable(result,sport);
+                check = TheBestXAthlete(sport, " AND  medal <> \"NA\"");
+                if (check.Count > 0){
+                    result += check[0];
+                    result += ".\n The best athlete is the athlete who won the most medals.";
+                    posts.Add(result);
+                    InsertIntoFeedTable(result,sport);
+                }
                 index = random.Next(sportsList.Count);
                 sport = sportsList[index];
                 result = "Did you know that the heaviest athlete in the field of " + sport + " is ";
@@ -284,7 +287,7 @@ namespace olympic_app.DB
             //Read the data and store the name in string
             while (dataReader.Read())
             {
-                Post p1 = new Post { PostId = Int32.Parse(dataReader["Post_id"] + ""), Content = dataReader["Post_content"] + "", Likes = 0, Date = DateTime.Parse(dataReader["Date"] + "" )};
+                Post p1 = new Post { PostId = Int32.Parse(dataReader["Post_id"] + ""), Content = dataReader["Post_content"] + "", Likes = 0, Date = DateTime.Parse(dataReader["Date"] + ""), Sport = dataReader["Sport"] + ""};
                 posts.Add(p1);
 
             }
@@ -305,7 +308,7 @@ namespace olympic_app.DB
             "(SELECT Athlete_id, Name, "+ parameter +" FROM olympicapp.athletes AS temp WHERE Athlete_id IN " + 
             "(SELECT Athlete_Id FROM olympicapp.medals WHERE (event_id IN " +
             "(SELECT event_id FROM olympicapp.event_types WHERE sport = \"" + sport + "\"" + "))" +
-            "GROUP BY Athlete_Id) AND " + parameter +" <> \"NA\") AS temp2 ORDER BY " + parameter + " " + order + " LIMIT 4) AS temp3;";
+            "GROUP BY Athlete_Id) AND " + parameter +" <> \"NA\") AS temp2 ORDER BY cast(" + parameter + " as unsigned) " + order + " LIMIT 4) AS temp3;";
             List<List<string>> result = new List<List<string>>();
             MySqlCommand cmd = new MySqlCommand(queryString, connection);
             dataReader = cmd.ExecuteReader();
@@ -675,7 +678,7 @@ namespace olympic_app.DB
 
         }
 
-                public List<string> GetAdminList(string username)
+        public List<string> GetAdminList(string username)
         {
             string queryString = "SELECT Sport FROM olympicapp.admin_permissions WHERE User_name = \"" + username + "\";";
             List<string> result = new List<string>();
@@ -719,6 +722,22 @@ namespace olympic_app.DB
                         
                 Console.WriteLine("user alredy liked this post.");
             } 
+            return false;
+        }
+        public bool DislikePost(string username, string post_id)
+        {
+            string queryString = "DELETE FROM olympicapp.likes WHERE User_name='" + username + "' and Post_id = " + post_id + ";";
+            MySqlCommand cmd = new MySqlCommand(queryString, connection);
+            try
+            {
+                dataReader = cmd.ExecuteReader();
+                while (dataReader.Read()) { }
+                dataReader.Close();
+                return true;
+            }
+            catch (MySqlException)
+            {
+            }
             return false;
         }
 

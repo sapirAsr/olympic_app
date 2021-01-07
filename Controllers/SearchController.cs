@@ -105,12 +105,11 @@ namespace olympic_app.Controllers
             for (int i = 0; i < tempSplit.Length; i++)
             {
                 string h = tempSplit[i];
-                string[] temp = h.Split('=');
+                string[] temp = h.Split('-');
                 dictAtr.Add(temp[0], temp[1]);
 
             }
             return manager.BasicFilter(dictAtr);
-
         }
 
 /**

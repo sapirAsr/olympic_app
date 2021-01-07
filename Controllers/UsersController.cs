@@ -45,13 +45,17 @@ namespace olympic_app.Controllers
             string password = temp[1];
             return manager.UserSignup(user_name, password);
         }
-        [HttpPost]
+       [HttpPost("{update_psw}")]
         // /api/Users/change_password
         [ActionName("change_password")]
-        public bool UpdatePassword(User user)
+        public bool UpdatePassword(string update_psw)
         {
-            return manager.ChangePassword(user.Username, user.Password);
+            string[] temp = update_psw.Split('&', 2);
+            string username = temp[0];
+            string password = temp[1];
+            return manager.ChangePassword(username, password);
         }
+
         [HttpDelete("{username}")]
         [ActionName("delete")]
         // /api/Users
@@ -71,6 +75,7 @@ namespace olympic_app.Controllers
             string isAdmin = temp[2];
             return manager.UpdateAdmin(username, sport, bool.Parse(isAdmin));
         }
+        
 
 
         [HttpGet("{username}")]

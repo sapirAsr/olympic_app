@@ -30,7 +30,7 @@
                 "args": "${auto-detect-url}",
                 "windows": {
                     "command": "cmd.exe",
-                    "args": "/C start ${auto-detect-url}/search_page.html"
+                    "args": "/C start ${auto-detect-url}/first_page.html"
                 },
                 "osx": {
                     "command": "open"
