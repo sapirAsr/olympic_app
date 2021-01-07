@@ -1,4 +1,7 @@
 function start(){
+      
+    // Click on the first tablink on load
+    document.getElementsByClassName("tablink")[0].click();
     get_sports();
     getList("Height", "heightslist");
     getList("Weight", "weightslist");
@@ -169,26 +172,6 @@ function getTheAnswerMost(str){
 }
 
 
-function getTallestAthlete(){
-    //game = game.replace(' ', '');
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState === 4) {
-            if (this.status === 200) {
-                let tallest = JSON.parse(this.responseText);
-                $("#answer").append("<p>" + tallest + "</p>");     
-            } else {                   
-                console.log("Error", xhttp.statusText);
-                alert(xhttp.statusText);
-            } 
-        }           
-    };     
-    xhttp.open("GET", "https://localhost:5001/api/Search/the_most/Basketball&Height&ASC", true);
-    xhttp.send(); 
-}
-
-
-
 function getAtrToSearch(){
     var atr = [];
     var e = document.getElementById("Search");
@@ -293,6 +276,3 @@ function filter(atr){
     document.getElementById(linkName).style.display = "block";
     evt.currentTarget.className += " w3-red";
   }
-  
-  // Click on the first tablink on load
-  document.getElementsByClassName("tablink")[0].click();

@@ -33,7 +33,6 @@
       <select id="Search"> 
         <option value="">I want to see..</option> 
         <option value="Athletes">Athletes</option> 
-        <option value="Games">Games</option> 
       </select>
         <select id="Sex"> 
           <option value="">Choose Sex</option> 
@@ -58,10 +57,10 @@
         </select>
       </div>
       <p><button class="w3-button w3-dark-grey" onclick="getAtrToSearch()">Search and find</button></p>
-      <span class="w3-tag w3-deep-orange answer" id="answer_filter"></span>
-     
+      <span class="w3-tag w3-deep-orange answer" id="answer_filter"></span> 
     </div>
     <div id="Best_Athlete" class="w3-container w3-white w3-padding-16 myLink">
+      <p><button class="w3-button w3-light-grey" onclick="resetSelects()" >Reset Search</button></p>
       <h3>Find the best athlete</h3>
       <p>Choose a field of sport.</p>
       <select class="Select_Sport" id="BestAthleteSelect">
@@ -72,6 +71,7 @@
     </div>
 
     <div id="Locations" class="w3-container w3-white w3-padding-16 myLink">
+      <p><button class="w3-button w3-light-grey" onclick="resetSelects()" >Reset Search</button></p>
       <h3>Find Games Location</h3>
       <p>Choose a game.</p>
       <select id="Select_Game">
@@ -81,6 +81,7 @@
       <span class="w3-tag w3-deep-orange answer" id="answer_location"></span>
     </div>
     <div id="TheMost" class="w3-container w3-white w3-padding-16 myLink">
+      <p><button class="w3-button w3-light-grey" onclick="resetSelects()" >Reset Search</button></p>
       <h3>Find Some Intresting Facts</h3>
       <p>Choose a sport ad fact and see the results.</p>
       <select class="Select_Sport" id="MostSport">
@@ -88,20 +89,16 @@
       </select>
       <select id="Fact"> 
         <option value="">Choose Fact</option>
-        <option value="Height DESC">Tallest Athlete</option>  
+        <option value="Height DESC">Tallest Athlete</option>
+        <option value="Height ASC">Shortest Athlete</option>  
+        <option value="Weight DESC">Heaviest Athlete</option>  
+        <option value="Weight ASC">Leanest Athlete</option>  
       </select>
-      <span class="w3-tag w3-deep-orange" id="answer_most"></span>
-
       <p><button class="w3-button w3-dark-grey" onclick="getThefact()">Find!</button></p>
-      <span class="w3-tag w3-deep-orange answer" id="answer_location"></span>
+      <span class="w3-tag w3-deep-orange answer" id="answer_most"></span>
     </div>
   </div>
 </header>
-
-<script>
-// Tabs
-
-</script>
 <script src="js/search.js"></script>
 </body>
 </html>

@@ -177,7 +177,7 @@ namespace olympic_app.DB
             return yearsList;           
         }
         
-        public List<string> GeneratePosts(){
+        public void GeneratePosts(){
             List<string> posts = new List<string>();
             List<List<string>> temp = new List<List<string>>();           
             // choosing a random sport
@@ -194,10 +194,10 @@ namespace olympic_app.DB
                 InsertIntoFeedTable(result,sport);
                 index = random.Next(sportsList.Count);
                 sport = sportsList[index];
-                result = "Did you know that the fatest athlete in the field of " + sport + " is ";
-                temp = TheMostXAthlete(sport,"Weight","ASC");
+                result = "Did you know that the heaviest athlete in the field of " + sport + " is ";
+                temp = TheMostXAthlete(sport,"Weight","DESC");
                 if (temp.Count > 0){
-                    result += temp[0] + "?\n This athlete weight is " + temp[1] + ".";
+                    result += temp[0][0] + "?\n This athlete weight is " + temp[0][1] + ".";
                     posts.Add(result);
                     InsertIntoFeedTable(result,sport);
                 }
@@ -205,7 +205,7 @@ namespace olympic_app.DB
                 index = random.Next(sportsList.Count);
                 sport = sportsList[index];
                 result = "Did you know that the leanest athlete in the field of " + sport + " is ";
-                temp = TheMostXAthlete(sport,"Weight","DESC");
+                temp = TheMostXAthlete(sport,"Weight","ASC");
                 if (temp.Count > 0){
 
                     result += temp[0][0] + "?\n This athlete weight is " + temp[0][1] + ".";
@@ -215,7 +215,7 @@ namespace olympic_app.DB
                 index = random.Next(sportsList.Count);
                 sport = sportsList[index];
                 result = "Did you know that the tallest athlete in the field of " + sport + " is ";
-                temp = TheMostXAthlete(sport,"Height","ASC");
+                temp = TheMostXAthlete(sport,"Height","DESC");
                 if (temp.Count > 0){
                     result += temp[0][0] + "?\n This athlete height is " + temp[0][1] + ".";
                     posts.Add(result);
@@ -224,7 +224,7 @@ namespace olympic_app.DB
                 index = random.Next(sportsList.Count);
                 sport = sportsList[index];
                 result = "Did you know that the shortest athlete in the field of " + sport + " is ";
-                temp = TheMostXAthlete(sport,"Height","DESC");
+                temp = TheMostXAthlete(sport,"Height","ASC");
                 if (temp.Count > 0){    
                     result += temp[0][0] + "?\n This athlete height is " + temp[0][1] + ".";
                     posts.Add(result);
@@ -232,7 +232,7 @@ namespace olympic_app.DB
                 }
       
             }   
-            return posts;
+            //return posts;
         }
         
         public void InsertIntoFeedTable(string content, string sport){
@@ -240,14 +240,19 @@ namespace olympic_app.DB
                 string date = DateTime.Today.ToString("yyyy-MM-dd");
                 //INSERT INTO olympicapp.feed (Post_content,Sport,Date)
                   //  VALUES ("test","test","2017-06-15");        
-                string queryString = "INSERT INTO olympicapp.feed (Post_content,Sport,Date) VALUES (\"" + content + "\",\"" +  sport + "\",\"" + date + "\");";
-                Console.WriteLine(queryString);
-                MySqlCommand cmd = new MySqlCommand(queryString, connection);
-                dataReader = cmd.ExecuteReader();
-                while (dataReader.Read())
-                {}    
-                //close Data Reader
-                dataReader.Close();
+                string queryString = @"INSERT INTO olympicapp.feed (Post_content,Sport,Date) VALUES ('" + content + "',\"" +  sport + "\",\"" + date + "\");";
+                try{
+                    MySqlCommand cmd = new MySqlCommand(queryString, connection);
+                    dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {}    
+                    //close Data Reader
+                    dataReader.Close();
+                }
+                catch (MySqlException){
+
+                }
+
                 
         }
         
@@ -270,6 +275,7 @@ namespace olympic_app.DB
         }
          
         public List<Post> FeedPosts(){
+            GeneratePosts();
             string queryString = "SELECT * FROM olympicapp.feed ORDER BY RAND() LIMIT 10;";
             MySqlCommand cmd = new MySqlCommand(queryString, connection);
             List<Post> posts =  new List<Post>();
@@ -650,7 +656,7 @@ namespace olympic_app.DB
                 }
 
             }
-            queryString = "INSERT INTO admin_permissions (User_name, Sport) VALUES(\"" + user + "\"," + sport + ");";
+            queryString = "INSERT INTO admin_permissions (User_name, Sport) VALUES(\"" + user + "\",\"" + sport + "\");";
             cmd = new MySqlCommand(queryString, connection);
             try
             {
@@ -669,9 +675,7 @@ namespace olympic_app.DB
 
         }
 
-        
-        //TODO!!!!!!!!!!!!!
-        public List<string> GetAdminList(string username)
+                public List<string> GetAdminList(string username)
         {
             string queryString = "SELECT Sport FROM olympicapp.admin_permissions WHERE User_name = \"" + username + "\";";
             List<string> result = new List<string>();

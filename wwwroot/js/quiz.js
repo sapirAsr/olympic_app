@@ -122,8 +122,25 @@ Quiz.prototype.render = function (container) {
             });
 
         }
-
-
+        if (score >= 3) {
+            sessionStorage.setItem('isAdmin', true);
+            var admin_username = sessionStorage.getItem('Username');
+            var cur_sport_field = sessionStorage.getItem('sport_field');
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        console.log(this.responseText);
+                        console.log("BLAAAAAAA");
+                    } else {
+                        console.log("Error", xhttp.statusText);
+                        alert(xhttp.statusText);
+                    }
+                }
+            };
+            xhttp.open("POST", "https://localhost:5001/api/Users/admin/" + admin_username + "&" + cur_sport_field + "&true", true);
+            xhttp.send();
+        }
 
         // Display the score with the appropriate message
         var percentage = score / self.questions.length;
@@ -131,8 +148,9 @@ Quiz.prototype.render = function (container) {
         var message;
         if (percentage === 1) {
             message = 'Great job!'
-        } else if (percentage >= .75) {
-            message = 'You did alright.'
+        } else if (percentage >= .6) {
+            message = 'Nice!'
+            confetti.start();
         } else if (percentage >= .5) {
             message = 'Better luck next time.'
         } else {
