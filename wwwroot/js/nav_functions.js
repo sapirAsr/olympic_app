@@ -1,39 +1,41 @@
-
 function open_login_page() {
-  var x = document.getElementById("myGrid");
-  window.location.href = "login.html";
+    var x = document.getElementById("myGrid");
+    window.location.href = "new_login.html";
 }
 
 function open_sign_up_page() {
-  var x = document.getElementById("myGrid");
-  window.location.href = "sign_up.html";
+    var x = document.getElementById("myGrid");
+    window.location.href = "sign_up.html";
 }
 
 function open_ask_us_page() {
-  window.location.href = "search_page.html";
+    window.location.href = "search_page.html";
 }
 
 
 function open_tests_menu_page() {
-  window.location.href = "tests_menu.html";
+    window.location.href = "tests_menu.html";
 }
 
 
 function open_home_page() {
-  window.location.href = "new_feed.html";
+    window.location.href = "new_feed.html";
 }
 
 
 function open_profile_page() {
-  window.location.href = "profile.html";
+    window.location.href = "profile.html";
 }
 
 function open_first_page() {
-  window.location.href = "first_page.html";
+    window.location.href = "first_page.html";
 }
 
 function open_change_details_page() {
 
-  document.getElementById("show_details").src = "change_details.html";
-  //window.location.href = "change_details.html";
+    document.getElementById("show_details").src = "change_details.html";
+}
+
+function open_admin_list_page() {
+    document.getElementById("show_details").src = "admin_list.html";
 }

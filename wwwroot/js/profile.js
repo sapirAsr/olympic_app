@@ -1,4 +1,4 @@
-function delete_user() {
+﻿function delete_user() {
     // client needs to provide the username and if its admin adding it in the end of the url by &
     var username = sessionStorage.getItem('Username');
     var isadmin = sessionStorage.getItem('IsAdmin');
@@ -42,41 +42,27 @@ function update_passord() {
     xhttp.send();
 }
 
-function open_admin_list_page() {
+function show_admins() {
     var name = sessionStorage.getItem('Username');
-    var new_password = document.getElementById("Password").value;
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
             if (this.status === 200) {
-                
+                let adminlist = JSON.parse(this.responseText);
+                if (adminlist.length == 0) {
+                    var str = "<div>" + "You don't have admin permission"+ "<br/>"+"go to Tests tab" + "</div> <br/>";
+                    $("#admin_list").append(str);
+                }
+                for (i = 0; i < adminlist.length; i++) {
+                    var str = "<li>" + adminlist[i] + "</li> <br/>";
+                    $("#admin_list").append(str);
+                }
             } else {
-                console.log("Error", xhttp.statusText);
-                alert(xhttp.statusText);
+                    console.log("Error", xhttp.statusText);
+                    alert(xhttp.statusText);
             }
         }
     };
-    xhttp.open("GET", "https://localhost:44328/api/Users/adminlist/" + name, true);
+        xhttp.open("GET", "https://localhost:44328/api/Users/adminlist/" + name, true);
     xhttp.send();
 }
-
-function get_sports() {
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState === 4) {
-            if (this.status === 200) {
-                let admin_list = JSON.parse(this.responseText);
-                console.log(admin_list);
-                for (i = 0; i < admin_list.length; i++) {
-                    var res = "<li>" + admin_list[i] + "</li>";
-                    $(".Select_Sport").append(res);
-                }
-
-            } else {
-                console.log("Error", xhttp.statusText);
-                alert(xhttp.statusText);
-            }
-        }
-    };
-    xhttp.open("GET", "https://localhost:44328/api/Search/sportslist", true);
-    xhttp.send();

@@ -36,6 +36,7 @@ function like(post_id) {
             if (this.status === 200) {
                 update_number_of_likes(post_id);
                 document.getElementById("like" + post_id).style.backgroundColor = "#337ab7";
+                document.getElementById("dislike" + post_id).style.backgroundColor = "#fff";
             } else {
                 console.log("Error", xhttp.statusText);
                 alert(xhttp.statusText);

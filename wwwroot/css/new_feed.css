@@ -129,3 +129,20 @@ body {
     font-size: 14px;
     font-weight: 600;
 }
+.profile-card {
+    border-radius: 15px;
+    background-size: 100% 100%;
+    color: #286090;
+}
+.h4, h4 {
+    font-size: 18px;
+    text-align: center;
+}
+.h1, h1 {
+    font-size: 40px;
+    text-align: center;
+    font-weight: bold;
+    color: #1c486e;
+    font-family: fantasy;
+}
+

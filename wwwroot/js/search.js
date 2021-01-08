@@ -1,12 +1,12 @@
 function start(){
     // Click on the first tablink on load
     document.getElementsByClassName("tablink")[0].click();
-    get_sports();
-    getList("Height", "heightslist");
-    getList("Weight", "weightslist");
-    getList("Team", "teamslist");
-    getList("Select_Game", "gameslist");
-    getList("Birth_year", "yearslist");
+    // get_sports();
+    // getList("Height", "heightslist");
+    // getList("Weight", "weightslist");
+    // getList("Team", "teamslist");
+    // getList("Select_Game", "gameslist");
+    // getList("Birth_year", "yearslist");
 
 }
 
@@ -67,6 +67,12 @@ function resetSelects() {
     for (i = 0; i < x.length; i++) {
       x[i].style.display = "none";
     }
+    var x = document.getElementsByClassName("answer");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+    }
+    x = document.getElementById("dynamicAtr");
+    x.style.display = "none";
 }
 
 function findBestAthlete(){
@@ -181,69 +187,69 @@ function getTheAnswerMost(str){
 
 function getAtrToSearch(){
     //validation_filter();
-    var atr = [];
+    var atr = {};
     var e = document.getElementById("Search");
     var selectVal = e.value;
-    atr.push({
-        key:   "Search",
-        value: selectVal
-    });
-    e = document.getElementById("Sex");
-    var selectedSex = e.value;
-    if(selectedSex != ""){
-        atr.push({
-            key:   "Sex",
-            value:  selectedSex
-        });
+    if (selectVal == ""){
+        alert("Please select what you want to see.");
+        return;
     }
-    e = document.getElementById("Team");
-    var selectedTeam = e.value;
-    if(selectedTeam != ""){
-        atr.push({
-            key:   "Team",
-            value: "='" + selectedTeam + "'"
-        });
-    }
-    var b = document.getElementById("parameterHeight");
-    e = document.getElementById("Height");
-    var selectedHeight = e.value;
-    if (selectedHeight != ""){
-        atr.push({
-            key:   "Height",
-            value: b.value + selectedHeight
-        }); 
-    }
-    b = document.getElementById("parameterWeight");
-    e = document.getElementById("Weight");
-    var selectedWeight = e.value;
-    if (selectedWeight != ""){
-        atr.push({
-            key:   "Weight",
-            value: b.value + selectedWeight
-        }); 
-    }
-    b = document.getElementById("parameterBirth");
-    e = document.getElementById("Birth_year");
-    var selectedBirth_year = e.value;
-    if (selectedBirth_year != ""){
-        atr.push({
-            key:   "Birth_year",
-            value: b.value + selectedBirth_year
-        }); 
+    atr["Search"] = selectVal;
+    if (selectVal == "Athletes") {
+        e = document.getElementById("Sex");
+        var selectedSex = e.value;
+        if(selectedSex != ""){
+                atr["Sex"] =  selectedSex;
+        } else {
+            atr["Sex"] =  "";
+        }
+        e = document.getElementById("Team");
+        var selectedTeam = e.value;
+        if(selectedTeam != ""){
+            atr["Team"] = "='" + selectedTeam + "'";
+        } else {
+            atr["Team"] =  "";
+        }
+        var b = document.getElementById("parameterHeight");
+        e = document.getElementById("Height");
+        var selectedHeight = e.value;
+        if (selectedHeight != ""){
+                atr["Height"] = b.value + selectedHeight;
+        } else {
+            atr["Height"] ="";
+        }
+        b = document.getElementById("parameterWeight");
+        e = document.getElementById("Weight");
+        var selectedWeight = e.value;
+        if (selectedWeight != ""){
+            atr["Weight"] = b.value + selectedWeight;
+        } else {
+            atr["Weight"] = "";
+        }
+        b = document.getElementById("parameterBirth");
+        e = document.getElementById("Birth_year");
+        var selectedBirth_year = e.value;
+        if (selectedBirth_year != ""){
+            atr["Birth_year"] =  b.value + selectedBirth_year;
+        } else{
+            atr["Birth_year"] = "";
+        }
     }
     e = document.getElementById("FilterSport");
     var selectedSport = e.value;
     if (selectedSport != ""){
-        atr.push({
-            key:   "Sport",
-            value: "='" +selectedSport + "'"
-        });
+        atr["Sport"] = "='" +selectedSport + "'";
+    } else{
+        atr["Sport"] = "";
     }
+    var check = validation_filter(atr);
     console.log(atr);
+    if(check){
     //check if there are values
-    filter(atr, "answer_filter");
-    let answer = document.getElementById("answer_filter");
-    answer.innerHTML = "";  
+        filter(atr, "answer_filter");       
+        let answer = document.getElementById("answer_filter");
+        answer.innerHTML = "";
+    }  
     
 }
 
@@ -278,10 +284,16 @@ function filter(atr,answer){
         }           
     };
     var str = "https://localhost:5001/api/Search/filter/";
-    for (i = 0; i < atr.length; i++) {
-        str += atr[i].key;
+    // for (i = 0; i < atr.length; i++) {
+    //     str += atr[i].key;
+    //     str += "-";
+    //     str += atr[i].value;
+    //     str += "&";
+    // }
+    for(var key in atr) {
+        str += key;
         str += "-";
-        str += atr[i].value;
+        str += atr[key];
         str += "&";
     }
     str = str.slice(0, -1);
@@ -342,7 +354,38 @@ function getTheMedal(){
 }
 
 
-function validation_filter(){
+function validation_filter(atr){
+    if(atr["Search"] == "Events" &&  atr["Sport"] == ""){
+        alert("Please choose sport");
+        return false;
+    }
+    var parmHeight = document.getElementById("parameterHeight").value;
+    if (atr["Search"] == "Athletes" &&  (atr["Height"] != "" && parmHeight == "")){
+        alert("Please parameter for height");
+        return false;
+    }
+    var parmHeight = document.getElementById("parameterWeight").value;
+    if (atr["Search"] == "Athletes" &&  (atr["Weight"] != "" && parmHeight == "")){
+        alert("Please parameter for weight");
+        return false;
+    }
+    var parmHeight = document.getElementById("parameterWeight").value;
+    if (atr["Search"] == "Athletes" &&  (atr["Weight"] != "" && parmHeight == "")){
+        alert("Please parameter for weight");
+        return false;
+    }
+
+    /**    
+    if (atr["Search"] == "Athletes" &&  (atr["Sex"] == "" && atr["Team"] == "")){
+        alert("Please choose sex or team");
+        return false;
+    }*/
+    return true;
+        // do something with "key" and "value" variables
+      
+
+    
+    /*
     var e = document.getElementById("Search");
     var selectVal = e.value;
     e = document.getElementById("Sex");
@@ -363,46 +406,49 @@ function validation_filter(){
     var parmBirth = b.value;
     e = document.getElementById("FilterSport");
     var selectedSport = e.value;
+    */
 }
 
-/*
+
+
 function rightMenu(selectedVal){
-    if(selectedVal.value == "Athletes"){
-        var str = '<select id="Sex"> <option value="">Choose Sex</option> <option value="=' + "'M'" +"'>Male</option>" + 
-                    'option value="='+"'F'"+'">Female</option> </select>' +
-                    '<select id="Team"><option value="">Choose Team</option></select><p>that are...</p>' +
-                    '<select id="parameterHeight" required><option value="">Choose parameter..</option>' 
-        $("#atributes").append(str);
+    var e = document.getElementById("dynamicAtr");
+    e.style.display = "block";
+    var x = document.getElementsByClassName("answer");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
     }
-} <option value="=">equal</option> 
-<option value=">">grater</option> 
-<option value="<">lesser</option> 
-</select>
-<select id="Height"> 
-<option value="">Choose Height</option> 
-</select>
-<select id="parameterWeight" required>
-<option value="">Choose parameter..</option>  
-<option value="=">equal</option> 
-<option value=">">grater</option> 
-<option value="<">lesser</option> 
-</select>
-<select id="Weight"> 
-<option value="">Choose Weight</option> 
-</select>
-<select id="parameterBirth" required>
-<option value="">Choose parameter..</option>  
-<option value="=">equal</option> 
-<option value=">">grater</option> 
-<option value="<">lesser</option> 
-</select>
-<select id="Birth_year"> 
-<option value="">Choose Birth Year</option>
-</select>
-<select class="Select_Sport" id="FilterSport">
-<option value="">Choose Sport</option>
-</select>
-</div> */
+    e.innerHTML ="";
+    var str;
+    if(selectedVal.value == "Athletes"){
+        str = '<select id="Sex"> <option value="">Choose Sex</option><option value="='+"'M'"+'">Male</option>' + 
+                    '<option value="='+"'F'"+'">Female</option></select>' +
+                    '<select id="Team"><option value="">Choose Team</option></select><p>that are...</p>' +
+                    '<select id="parameterHeight" required><option value="">Choose parameter..</option>' +
+                    '<option value="=">equal</option><option value=">">grater</option> <option value="<">lesser</option></select>' +
+                    '<select id="Height"> <option value="">Choose Height</option> </select>' +
+                    '<select id="parameterWeight" required><option value="">Choose parameter..</option> <option value="=">equal</option>' +
+                    '<option value=">">grater</option><option value="<">lesser</option></select>' +
+                    '<select id="Weight"><option value="">Choose Weight</option> </select><select id="parameterBirth" required>' +
+                    '<option value="">Choose parameter..</option><option value="=">equal</option><option value=">">grater</option>' +
+                    '<option value="<">lesser</option></select><select id="Birth_year"><option value="">Choose Birth Year</option>' +
+                    '</select><select class="Select_Sport" id="FilterSport"><option value="">Choose Sport</option></select></div>';
+
+        $("#dynamicAtr").append(str); 
+        get_sports();
+        getList("Height", "heightslist");
+        getList("Weight", "weightslist");
+        getList("Team", "teamslist");
+        getList("Select_Game", "gameslist");
+        getList("Birth_year", "yearslist");
+
+    }
+    else{
+        str = '<select class="Select_Sport" id="FilterSport"><option value="">Choose Sport</option></select></div>';
+        $("#dynamicAtr").append(str); 
+        get_sports();
+    }
+} 
 
 
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Profile</title>
@@ -17,7 +17,9 @@
 </head>
 <style>
     .profile-content {
-        background-color: lightblue;
+        background-image: url("pictures/icons_bg.jpeg");
+        background-repeat:no-repeat;
+        background-size:contain;
     }
 </style>
  <body onload="show_username()">
@@ -78,7 +80,7 @@ Licensed under MIT
               Account Settings </a>
             </li>
             <li>
-              <a href="#" target="_blank" onclick="open_admin_list_page()">
+              <a href="#" onclick="open_admin_list_page()">
               <i class="glyphicon glyphicon-ok"></i>
               Your Tests </a>
             </li>
@@ -87,7 +89,7 @@ Licensed under MIT
         <!-- END MENU -->
       </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9" >
             <div class="profile-content" id="profile_content">
                 <iframe id="show_details" style="border:none;" height="300px" name="targetframe"></iframe>
 

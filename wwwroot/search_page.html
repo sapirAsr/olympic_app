@@ -77,53 +77,18 @@
         <p><button class="w3-button w3-light-grey" onclick="resetSelects()" >Reset Search</button></p>
         <h3>Filter</h3> 
         <div id="atributes">  
-        <select id="Search" required> 
+        <select id="Search" onchange="rightMenu(this)" required> 
           <option value="">I want to see..</option> 
-          <option value="Athletes">Athletes</option> 
+          <option value="Athletes">Athletes</option>
+          <option value="Events">Sport Events</option> 
         </select>
-          <select id="Sex"> 
-            <option value="">Choose Sex</option> 
-            <option value="='M'">Male</option> 
-            <option value="='F'">Female</option> 
-          </select> 
-          <select id="Team"> 
-            <option value="">Choose Team</option> 
-          </select>
-          <p>that are...</p>
-          <select id="parameterHeight" required>
-            <option value="">Choose parameter..</option>  
-            <option value="=">equal</option> 
-            <option value=">">grater</option> 
-            <option value="<">lesser</option> 
-          </select>
-          <select id="Height"> 
-            <option value="">Choose Height</option> 
-          </select>
-          <select id="parameterWeight" required>
-            <option value="">Choose parameter..</option>  
-            <option value="=">equal</option> 
-            <option value=">">grater</option> 
-            <option value="<">lesser</option> 
-          </select>
-          <select id="Weight"> 
-            <option value="">Choose Weight</option> 
-          </select>
-          <select id="parameterBirth" required>
-            <option value="">Choose parameter..</option>  
-            <option value="=">equal</option> 
-            <option value=">">grater</option> 
-            <option value="<">lesser</option> 
-          </select>
-          <select id="Birth_year"> 
-            <option value="">Choose Birth Year</option>
-          </select>
-          <select class="Select_Sport" id="FilterSport">
-            <option value="">Choose Sport</option>
-          </select>
+        <div id="dynamicAtr">
+
         </div>
+      </div>
         <p><button class="w3-button w3-dark-grey" onclick="getAtrToSearch()">Search and find</button></p>
         <div class="w3-tag w3-deep-orange answer data-mdb-perefect-scrollbar overflow-auto" id="answer_filter"></div> 
-      </div>
+      
       <div id="Best_Athlete" class="w3-container w3-white w3-padding-16 myLink">
         <p><button class="w3-button w3-light-grey" onclick="resetSelects()" >Reset Search</button></p>
         <h3>Find the best athlete</h3>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Test Menu</title>
@@ -71,7 +71,7 @@
 
     <div class="container text-center">
         <form action="/action_page.php">
-            <select id="Select_Sport" class="Select_Sport">
+            <select id="Select_Sport" class="Select_Sport" required>
                 <option selected value="base">Select Sport</option>
             </select>
             <!--<label for="gsearch">Enter Sport:</label>-->
@@ -95,8 +95,14 @@
         <script type="text/javascript">
             function get_test() {
                 var sport_name = document.getElementById("Select_Sport").value;
-                sessionStorage.setItem('sport_field', sport_name);
-                window.location.href = "navbar.html";
+                if (sport_name != "base") {
+                    sessionStorage.setItem('sport_field', sport_name);
+                    window.location.href = "navbar.html";
+                }
+                else {
+                    alert("Please select sport field");
+                }
+
             }
 
         </script>

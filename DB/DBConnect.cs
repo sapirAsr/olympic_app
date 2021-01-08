@@ -45,7 +45,7 @@ namespace olympic_app.DB
                 connection.Open();   
                 sportsList = SelectColFromTable("Sport","event_types", "");
                 gamesList = SelectColFromTable("Game","olympic_games", "");
-                teamsList =  SelectColFromTable("Team","athletes","");
+                teamsList =  SelectColFromTable("Team","athletes"," ORDER BY Team ASC");
                 heightsList =  SelectColFromTable("Height","athletes"," WHERE Height<>'NA' ORDER BY Height ASC");
                 weightsList =  SelectColFromTable("Weight","athletes", " WHERE Weight<>'NA' ORDER BY cast(Weight as unsigned)  ASC");
                 yearsList =  SelectColFromTable("Birth_year","athletes"," WHERE Birth_year<>'NA' ORDER BY Birth_year ASC");
@@ -106,23 +106,26 @@ namespace olympic_app.DB
             string selectStr = "";
             string table = "";
             // handle which col we select and from where and change atr to match with the schema
-            //if (dictAtr["Search"] == "Athletes"){
+            if (dictAtr["Search"] == "Events"){
+                selectStr = "event";
+                table = "event_types";
+                
+            } else {
                 selectStr = "Name";
                 table = "Athletes";
-            //}
-            //after this handle we remove it
-            if (dictAtr.ContainsKey("Search")){
-                dictAtr.Remove("Search");
+          
+                if (dictAtr.ContainsKey("Sport")){
+                    table = "(SELECT Athlete_id, Game_id, e.Event_id, Medal, Name, Sex, Height, Weight, Team,Birth_year,event, Sport " +
+                                "FROM event_types AS e " +
+                                "LEFT JOIN "+
+                                "(SELECT m.Athlete_id, Game_id, Event_id, Medal, Name, Sex, Height, Weight, Team,Birth_year "+
+                                "FROM medals AS m "+
+                                "LEFT JOIN athletes AS a ON a.Athlete_id= m.Athlete_id) AS temp "+
+                                "ON temp.Event_id= e.Event_id) AS temp";
+                } 
             }
-             if (dictAtr.ContainsKey("Sport")){
-                 table = "(SELECT Athlete_id, Game_id, e.Event_id, Medal, Name, Sex, Height, Weight, Team,Birth_year,event, Sport " +
-                            "FROM event_types AS e " +
-                            "LEFT JOIN "+
-                            "(SELECT m.Athlete_id, Game_id, Event_id, Medal, Name, Sex, Height, Weight, Team,Birth_year "+
-                            "FROM medals AS m "+
-                            "LEFT JOIN athletes AS a ON a.Athlete_id= m.Athlete_id) AS temp "+
-                            "ON temp.Event_id= e.Event_id) AS temp";
-            } 
+             dictAtr.Remove("Search");
+
            //handle the where statment 
             string whereVals = "";
             foreach(KeyValuePair<string, string> pair in dictAtr){
@@ -130,6 +133,7 @@ namespace olympic_app.DB
                     Console.WriteLine(pair);
                     whereVals += pair.Key;
                     whereVals += pair.Value;
+                    whereVals +=  " AND " + pair.Key + "<>'NA'";
                     whereVals += " AND ";
                 }
 
@@ -233,6 +237,57 @@ namespace olympic_app.DB
                     posts.Add(result);
                     InsertIntoFeedTable(result,sport);
                 }
+                index = random.Next(teamsList.Count);
+                string team = teamsList[index];
+                result = "Did you know that the " + team + " team was represented by ";
+                string number = GetNumberOfAthletesFromTeam(team);
+                if (number != "")
+                {
+                    result += number + " athletes?<br>";
+                    posts.Add(result);
+                    InsertIntoFeedTable(result, "General");
+                }
+                index = random.Next(sportsList.Count);
+                sport = sportsList[index];
+                result = "Did you know that there are ";
+                number = GetDistinctEvents(sport);
+                if (number != "")
+                {
+                    result += number + " different events in the " + sport +" field?<br>";
+                    posts.Add(result);
+                    InsertIntoFeedTable(result, "General");
+                }
+                index = random.Next(gamesList.Count);
+                string game = gamesList[index];
+                result = "Did you know that the " + game + "  Olympics took place in ";
+                check = LocationOfOlympicGame(game);
+                if (check.Count > 0)
+                {
+                    result += check[1] +", " + check[0] + "?<br>";
+                    posts.Add(result);
+                    InsertIntoFeedTable(result, sport);
+                }
+                index = random.Next(sportsList.Count);
+                sport = sportsList[index];
+                result = "Did you know that the average height in the field of " + sport + " is ";
+                string maleAvg = GetAvgOfGender(sport, "M");
+                string femaleAvg = GetAvgOfGender(sport, "F");
+                if (maleAvg != "" && femaleAvg !=" ")
+                {
+                    result += maleAvg + " for men and " + femaleAvg + " for women?<br>";
+                    posts.Add(result);
+                    InsertIntoFeedTable(result, sport);
+                }
+                index = random.Next(sportsList.Count);
+                sport = sportsList[index];
+                result = "Did you know that ";
+                check = GetRandomWin(sport);
+                if (check.Count > 0)
+                {
+                    result += check[0] + " won a " + check[1] + " medal in the " + sport + " field?<br>";
+                    posts.Add(result);
+                    InsertIntoFeedTable(result, sport);
+                }
       
             }   
             //return posts;
@@ -324,32 +379,83 @@ namespace olympic_app.DB
             return result;
         }
 
-        //the best athlete in specific sport
-        /**
-        public List<string> TheBestAthlete(string sport, string helper){
-            var queryString = "SELECT Name FROM olympicapp.athletes WHERE Athlete_Id = (SELECT Athlete_Id FROM (" +
-            "SELECT Athlete_Id, COUNT(*) AS magnitude FROM (SELECT Athlete_Id, Medal FROM olympicapp.medals WHERE ((event_id IN " +
-            "(SELECT event_id FROM olympicapp.event_types WHERE sport = \"" + sport + "\"" + ")) AND  medal <> \"NA\")) AS temp " +
-            "GROUP BY Athlete_Id " +
-             "ORDER BY magnitude DESC " +
-            "LIMIT 1) AS temp2);";
-            List<string> result = new;
+       public string GetNumberOfAthletesFromTeam (string team)
+        {
+            var queryString = @"SELECT COUNT(distinct athletes.Name) as number FROM olympicapp.athletes WHERE athletes.Team='" + team +"';";
+            string result = "";
             MySqlCommand cmd = new MySqlCommand(queryString, connection);
             dataReader = cmd.ExecuteReader();
 
             //Read the data and store the name in string
             while (dataReader.Read())
             {
-                result += dataReader["Name"] + "";
-                          
+                result += dataReader["number"] + "";
+
             }
             //close Data Reader
-             dataReader.Close();
-            
-             return result;
-
+            dataReader.Close();
+            return result;
         }
-        */
+        public string GetDistinctEvents(string sport)
+        {
+            var queryString = @"SELECT COUNT(distinct event_types.event) as number FROM olympicapp.event_types WHERE event_types.Sport='" + sport + "';";
+            string result = "";
+            MySqlCommand cmd = new MySqlCommand(queryString, connection);
+            dataReader = cmd.ExecuteReader();
+
+            //Read the data and store the name in string
+            while (dataReader.Read())
+            {
+                result += dataReader["number"] + "";
+
+            }
+            //close Data Reader
+            dataReader.Close();
+            return result;
+        }
+        public string GetAvgOfGender(string sport, string gender)
+        {
+            var queryString = @"SELECT ROUND(AVG(athletes.Height),2) as avg FROM olympicapp.athletes WHERE athletes.Sex='" + gender +"'" +
+                " AND NOT athletes.Height='NA' and Athlete_id IN" +
+                "(SELECT Athlete_Id FROM olympicapp.medals WHERE((event_id IN " +
+                "(SELECT event_id FROM olympicapp.event_types WHERE sport = '" + sport + "'))));";
+            string result = "";
+            MySqlCommand cmd = new MySqlCommand(queryString, connection);
+            dataReader = cmd.ExecuteReader();
+
+            //Read the data and store the name in string
+            while (dataReader.Read())
+            {
+                result += dataReader["avg"] + "";
+
+            }
+            //close Data Reader
+            dataReader.Close();
+            return result;
+        }
+        public List<string> GetRandomWin(string sport)
+        {
+            var queryString = "(SELECT olympicapp.athletes.Name, olympicapp.medals.Medal " +
+                              "FROM olympicapp.medals JOIN olympicapp.event_types " +
+                              "ON olympicapp.medals.Event_id = olympicapp.event_types.Event_id JOIN olympicapp.athletes " +
+                              "ON olympicapp.athletes.Athlete_id = olympicapp.medals.Athlete_id " +
+                              "WHERE NOT olympicapp.medals.Medal = \"NA\" AND olympicapp.event_types.Sport = '" + sport +"') " +
+                              "ORDER BY RAND() LIMIT 1;";
+            List<string> result = new List<string>();
+            MySqlCommand cmd = new MySqlCommand(queryString, connection);
+            dataReader = cmd.ExecuteReader();
+            //Read the data and store the name in string
+            while (dataReader.Read())
+            {
+                result.Add(dataReader["Name"] + "");
+                result.Add(dataReader["Medal"] + "");
+
+            }
+            //close Data Reader
+            dataReader.Close();
+
+            return result;
+        }
     
         // quiz
 
