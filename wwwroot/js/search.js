@@ -1,15 +1,14 @@
 function start(){
     // Click on the first tablink on load
     document.getElementsByClassName("tablink")[0].click();
-    // get_sports();
+    get_sports();
     // getList("Height", "heightslist");
     // getList("Weight", "weightslist");
     // getList("Team", "teamslist");
-    // getList("Select_Game", "gameslist");
+    getList("Select_Game", "gameslist");
     // getList("Birth_year", "yearslist");
 
 }
-
 
 function getList(idName, url){
     let xhttp = new XMLHttpRequest();
@@ -255,21 +254,21 @@ function getAtrToSearch(){
 
 
 function filter(atr,answer){
-    //game = game.replace(' ', '');
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
             if (this.status === 200) {
                 let results = JSON.parse(this.responseText);
-                //console.log(sports); 
+                console.log(results);
+                console.log(results.length); 
                 var flag = 0; 
                 for (i = 0; i < results.length; i++) {
                     if (i >= 12) {
-                        $("#" + answer).append("<p class='answer_display hide'>" + results[i] + "</p>");
+                        $("#" + answer).append("<li class='answer_display'>" + results[i] + "</li>");
                         flag =1 ;    
                     } 
                     else{
-                    $("#" + answer).append("<p class ='answer_display'>" + results[i] + "</p>"); 
+                    $("#" + answer).append("<li class ='answer_display'>" + results[i] + "</li>"); 
                     }    
                 }
                 // if(flag ==1) {
@@ -284,12 +283,6 @@ function filter(atr,answer){
         }           
     };
     var str = "https://localhost:5001/api/Search/filter/";
-    // for (i = 0; i < atr.length; i++) {
-    //     str += atr[i].key;
-    //     str += "-";
-    //     str += atr[i].value;
-    //     str += "&";
-    // }
     for(var key in atr) {
         str += key;
         str += "-";
@@ -324,27 +317,18 @@ function next() {
 
 
 function getTheMedal(){
-    var atr = [];
+    var atr = {};
     var e = document.getElementById("MedalSelect");
     var selectedMedal = e.value;
-    atr.push({
-        key:   "Medal",
-        value: selectedMedal
-    });
+    atr["Medal"] = selectedMedal;
     e = document.getElementById("MedalSport");
     var selectedSport = e.value;
-    atr.push({
-        key:   "Sport",
-        value: "='" +selectedSport + "'"
-    });
+    atr["Sport"]= "='" +selectedSport + "'";
     e = document.getElementById("SexMedal");
     var selectedSex = e.value;
-    atr.push({
-        key:   "Sex",
-        value: selectedSex
-    });
+    atr["Sex"] = selectedSex;
     if (selectedSport == "" || selectedMedal == ""){
-        alert("Please choose all fields."); 
+        alert("Please choose all required fields."); 
     } 
     else{
         filter(atr, "answer_medal");
@@ -359,54 +343,32 @@ function validation_filter(atr){
         alert("Please choose sport");
         return false;
     }
+    if(atr["Search"] == "Events" &&  atr["Sport"] != ""){
+        return true;
+    }
     var parmHeight = document.getElementById("parameterHeight").value;
     if (atr["Search"] == "Athletes" &&  (atr["Height"] != "" && parmHeight == "")){
-        alert("Please parameter for height");
+        alert("Please choose parameter for height");
         return false;
     }
     var parmHeight = document.getElementById("parameterWeight").value;
     if (atr["Search"] == "Athletes" &&  (atr["Weight"] != "" && parmHeight == "")){
-        alert("Please parameter for weight");
+        alert("Please choose parameter for weight");
         return false;
     }
-    var parmHeight = document.getElementById("parameterWeight").value;
-    if (atr["Search"] == "Athletes" &&  (atr["Weight"] != "" && parmHeight == "")){
-        alert("Please parameter for weight");
+    var parmBirth = document.getElementById("parameterBirth").value;
+    if (atr["Search"] == "Athletes" &&  (atr["Birth_year"] != "" && parmBirth == "")){
+        alert("Please choose parameter for birth year");
         return false;
     }
-
-    /**    
-    if (atr["Search"] == "Athletes" &&  (atr["Sex"] == "" && atr["Team"] == "")){
-        alert("Please choose sex or team");
+    //if everything is empty
+    if (atr["Search"] == "Athletes" && atr["Height"] == "" &&  atr["Weight"] == "" &&  atr["Birth_year"] == "" &&
+          atr["Sport"] == "" && atr["Sex"] == "" && atr["Team"] == ""){
+        alert("Please choose at least one parameter");
         return false;
-    }*/
-    return true;
-        // do something with "key" and "value" variables
-      
-
-    
-    /*
-    var e = document.getElementById("Search");
-    var selectVal = e.value;
-    e = document.getElementById("Sex");
-    var selectedSex = e.value;
-    e = document.getElementById("Team");
-    var selectedTeam = e.value;
-    var b = document.getElementById("parameterHeight");
-    e = document.getElementById("Height");
-    var selectedHeight = e.value;
-    var parmHeight = b.value;
-    b = document.getElementById("parameterWeight");
-    e = document.getElementById("Weight");
-    var selectedWeight = e.value;
-    var parmWeight = b.value;
-    b = document.getElementById("parameterBirth");
-    e = document.getElementById("Birth_year");
-    var selectedBirth_year = e.value;
-    var parmBirth = b.value;
-    e = document.getElementById("FilterSport");
-    var selectedSport = e.value;
-    */
+    }
+    //else
+    return true;    
 }
 
 
@@ -450,12 +412,8 @@ function rightMenu(selectedVal){
     }
 } 
 
-
-
-
-
-  // Tabs
-  function openLink(evt, linkName) {
+// Tabs
+function openLink(evt, linkName) {
     var i, x, tablinks;
     x = document.getElementsByClassName("myLink");
     for (i = 0; i < x.length; i++) {

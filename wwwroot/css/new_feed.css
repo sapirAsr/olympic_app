@@ -38,6 +38,7 @@ body{
 
 .media-block {
     background: white;
+    padding: 10px;
 }
 
 .media-block .media-left {
@@ -145,4 +146,13 @@ body {
     color: #1c486e;
     font-family: fantasy;
 }
-
+img.right_logo {
+    float: right;
+    width: 100px;
+    height: 100px;
+}
+img.left_logo {
+    float: left;
+    width: 100px;
+    height: 100px;
+}

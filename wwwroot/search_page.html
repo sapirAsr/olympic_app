@@ -9,30 +9,13 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="css/search.css" rel="stylesheet" media="all"> 
+    <link href="css/style.css" rel="stylesheet" media="all"> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <script src="js/nav_functions.js"></script>
     <script src="js/search.js"></script>
-    <style>
-        /* Remove the navbar's default margin-bottom and rounded borders */
-        .navbar {
-            margin-bottom: 0;
-            border-radius: 0;
-        }
-
-        /* Add a gray background color and some padding to the footer */
-        footer {
-            background-color: #f2f2f2;
-            padding: 25px;
-        }
-
-        .carousel-inner img {
-            width: 100%; /* Set width to 100% */
-            margin: auto;
-            max-height: 300px;
-        }
-    </style>
+    
 </head>
 <body onload="start()">
     <!-- NAV BAR-->
@@ -53,7 +36,7 @@
                     <li class="active"><a href="#" onclick="open_ask_us_page()">Ask Us</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" onclick="open_profile_page()"><span class="glyphicon glyphicon-log-in"></span> Profile</a></li>
+                    <li><a href="#" onclick="open_profile_page()"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
                 </ul>
             </div>
         </div>
@@ -61,7 +44,7 @@
   <div>
 <!-- Header -->
 <div class="w3-display-container w3-content w3-hide-small" style="max-width:1500px">
-    <img class="w3-image" src="lib/search_bg.png" alt="London" width="1500" height="700">
+    <img class="w3-image" src="lib/search_bg.png" width="100%" height="100%">
     <div class="w3-display-middle" style="width:65%">
       <div class="w3-bar w3-black">
         <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Filter');"><i class="zmdi zmdi-search"></i>Filter</button>
@@ -82,13 +65,11 @@
           <option value="Athletes">Athletes</option>
           <option value="Events">Sport Events</option> 
         </select>
-        <div id="dynamicAtr">
-
+        <div id="dynamicAtr"></div>
         </div>
-      </div>
         <p><button class="w3-button w3-dark-grey" onclick="getAtrToSearch()">Search and find</button></p>
-        <div class="w3-tag w3-deep-orange answer data-mdb-perefect-scrollbar overflow-auto" id="answer_filter"></div> 
-      
+        <ul dir="rtl" class="w3-tag w3-deep-orange answer data-mdb-perefect-scrollbar overflow-auto" id="answer_filter"></ul> 
+      </div>
       <div id="Best_Athlete" class="w3-container w3-white w3-padding-16 myLink">
         <p><button class="w3-button w3-light-grey" onclick="resetSelects()" >Reset Search</button></p>
         <h3>Find the best athlete</h3>
@@ -147,7 +128,7 @@
             <option value="='F'">Female</option> 
           </select> 
         <p><button class="w3-button w3-dark-grey" onclick="getTheMedal()">Find!</button></p>
-        <span class="w3-tag w3-deep-orange answer" id="answer_medal"></span>
+        <ul dir="rtl"class="w3-tag w3-deep-orange answer" id="answer_medal"></ul>
       </div>
     </div>
 </div>

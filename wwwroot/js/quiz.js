@@ -28,6 +28,7 @@ function get_quiz() {
     };
     var quiz_st = sessionStorage.getItem('sport_field');
     var st = "https://localhost:5001/api/Quiz/" + quiz_st;
+    //var st = "https://localhost:5001/api/Quiz/Basketball";
     xhttp.open("GET", st , false);
         xhttp.send();
     }

@@ -1,4 +1,5 @@
-* {
+
+/* {
     margin: 0px;
     padding: 0px;
     font: 16px 'Source Sans Pro', sans-serif;
@@ -23,25 +24,31 @@ html {
 body {
     display: table-cell;
     vertical-align: middle;
+}*/
+
+html, body {
+    background: #2E706C;
+    text-align: center;
 }
 
 #quiz {
-    margin: -44px 50px 0px;
+    margin: 70px 15% 0px 15%;
     position: relative;
-    width: calc(100% - 100px);
+    width: calc(100% - 500px);
+
 }
 
-    #quiz h1 {
-        color: #FAFAFA;
-        font-weight: 600;
-        font-size: 36px;
-        text-transform: uppercase;
-        text-align: left;
-        line-height: 44px;
-    }
+#quiz h1 {
+    color: #FAFAFA;
+    font-weight: 600;
+    font-size: 36px;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 44px;
+}
 
     #quiz button {
-        float: left;
+        float: right;
         margin: 8px 0px 0px 8px;
         padding: 4px 8px;
         background: #9ACFCC;
@@ -51,10 +58,10 @@ body {
         outline: none;
     }
 
-        #quiz button:hover {
-            background: #36a39c;
-            color: #FFF;
-        }
+    #quiz button:hover {
+        background: #36a39c;
+        color: #FFF;
+    }
 
         #quiz button:disabled {
             opacity: 0.5;
@@ -124,8 +131,30 @@ body {
     font-size: 20px;
 }
 
-    #quiz-results-score b {
+#quiz-results-score b {
         color: #00403C;
         font-weight: 600;
         font-size: 20px;
-    }
+}
+
+
+ /* Remove the navbar's default margin-bottom and rounded borders */
+ .navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+/* Add a gray background color and some padding to the footer */
+footer {
+    background-color: #f2f2f2;
+    padding: 25px;
+}
+
+.carousel-inner img {
+    width: 100%; /* Set width to 100% */
+    margin: auto;
+    max-height: 300px;
+}
+
+
+    

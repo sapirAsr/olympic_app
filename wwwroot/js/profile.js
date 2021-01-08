@@ -6,7 +6,7 @@
     if (isadmin) {
         temp = "&";
     }
-    fetch("https://localhost:44328/api/Users/delete/" + username + temp, {
+    fetch("https://localhost:5001/api/Users/delete/" + username + temp, {
         method: 'DELETE',
     });
     open_first_page();
@@ -38,7 +38,7 @@ function update_passord() {
             }
         }
     };
-    xhttp.open("POST", "https://localhost:44328/api/Users/change_password/" + name + "&" + new_password, true);
+    xhttp.open("POST", "https://localhost:5001/api/Users/change_password/" + name + "&" + new_password, true);
     xhttp.send();
 }
 
@@ -63,6 +63,6 @@ function show_admins() {
             }
         }
     };
-        xhttp.open("GET", "https://localhost:44328/api/Users/adminlist/" + name, true);
+        xhttp.open("GET", "https://localhost:5001/api/Users/adminlist/" + name, true);
     xhttp.send();
 }

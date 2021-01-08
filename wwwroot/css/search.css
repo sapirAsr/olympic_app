@@ -62,3 +62,35 @@ a.next.round, a.previous.round {
   .round {
     border-radius: 50%;
   }
+ /* Remove the navbar's default margin-bottom and rounded borders */
+ .navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+.carousel-inner img {
+    width: 100%; /* Set width to 100% */
+    margin: auto;
+    max-height: 300px;
+}
+.w3-tooltip, .w3-display-container {
+    position: unset;
+}
+div#answer_filter {
+    max-height: 225px;
+}
+ul#answer_filter, ul#answer_medal {
+    -moz-column-count: 4;
+    -moz-column-gap: 20px;
+    -webkit-column-count: 4;
+    -webkit-column-gap: 20px;
+    column-count: 4;
+    column-gap: 20px;
+    margin-top: 5px;
+}
+li.answer_display {
+    margin: 0px 0px 10px 10px;
+    text-align: left;
+    direction: ltr;
+}
+

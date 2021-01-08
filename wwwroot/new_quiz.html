@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Quiz</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="css/new_feed.css" rel="stylesheet" media="all">
-    <script src="js/new_feed.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="js/nav_functions.js"></script>
+    <script src="js/quiz.js"></script>
+    <script src="js/confetti.min.js"></script>
+    <link href="css/quiz.css" rel="stylesheet" media="all">
 </head>
-<body onload="load_feed_news()">
+<body>
+    <!-- NAV BAR-->
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -22,9 +29,9 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#" onclick="open_home_page()">Home</a></li>
                     <li><a href="#" onclick="open_tests_menu_page()">Tests</a></li>
-                    <li><a href="#" onclick="open_ask_us_page()">Ask us</a></li>
+                    <li class="active"><a href="#" onclick="open_ask_us_page()">Ask Us</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" onclick="open_profile_page()"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
@@ -32,21 +39,19 @@
             </div>
         </div>
     </nav>
-    <div class="container bootdey">
-        <div class="media-body">
-        <div class="profile-card header">
-            <img src="pictures/olympics-logo-feed.png" class="left_logo" alt="logo"/>           
-            <img src="pictures/olympics-logo-feed.png" class="right_logo" alt="logo"/>
-            <h1 class="text-white">Olympic Feed</h1>  
-            <h4 class="text-white">News about the Olympics</h4>
-            </div>
+    <div id="quiz">
+        <h1 id="quiz-name"></h1>
+        <button id="submit-button" class="btn btn-success">Submit Answers</button>
+        <button id="next-question-button" class="btn btn-success">Next Question</button>
+        <button id="prev-question-button" class="btn btn-success">Previous</button>
+      
+       
+
+        <div id="quiz-results">
+            <p id="quiz-results-message"></p>
+            <p id="quiz-results-score"></p>
+            <!--<button id="quiz-retry-button">Retry</button>-->
         </div>
-        <span></span>
-        <div class="col-md-12 bootstrap snippets">
-            <div class="panel" id="feed-panel">
-            </div>
-        </div>
-        <button class="title" onclick="load_feed_news()">Load other posts...</button>
     </div>
 
 </body>

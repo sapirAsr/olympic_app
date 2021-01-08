@@ -61,5 +61,5 @@ function signup() {
     xhttp.send();
 }
 function open_signup_page() {
-    window.location.href = "sign_up.html";
+    window.location.href = "new_signup.html";
 }

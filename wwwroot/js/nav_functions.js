@@ -5,7 +5,7 @@ function open_login_page() {
 
 function open_sign_up_page() {
     var x = document.getElementById("myGrid");
-    window.location.href = "sign_up.html";
+    window.location.href = "new_signup.html";
 }
 
 function open_ask_us_page() {
