@@ -1,66 +1,85 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+    background-image: url(../lib/olympic-games.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
 }
 
-* {
-  box-sizing: border-box
-}
-
-/* Full-width input fields */
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-}
-
-  input[type=text]:focus, input[type=password]:focus {
-      background-color: #ddd;
-      outline: none;
-  }
-
-hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
-}
-
-/* Set a style for all buttons */
-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-}
-
-  button:hover {
-      opacity: 1;
-  }
-
-/* Extra styles for the cancel button */
-.cancelbtn {
-  padding: 14px 20px;
-  background-color: #f44336;
-}
-
-/* Float cancel and signup buttons and add an equal width */
-.cancelbtn, .signupbtn {
-  float: right;
-  width: 20%;
-}
-
-/* Add padding to container elements */
 .container {
-  padding: 16px;
+    height: 100%;
+    align-content: center;
 }
 
-/* Clear floats */
-.clearfix::after {
-  content: "";
-  clear: both;
+.card {
+    height: 370px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: rgba(144,178,214,0.5) !important;
 }
+
+.social_icon span {
+    font-size: 60px;
+    margin-left: 10px;
+    color: rgba(144,178,214,0.5) !important;
+}
+
+    .social_icon span:hover {
+        color: white;
+        cursor: pointer;
+    }
+
+.card-header h3 {
+    color: white;
+}
+
+.social_icon {
+    position: absolute;
+    right: 20px;
+    top: -45px;
+}
+
+.input-group-prepend span {
+    width: 50px;
+    background-color: rgba(141,182,226,0.9);
+    color: black;
+    border: 0 !important;
+}
+
+input:focus {
+    outline: 0 0 0 0 !important;
+    box-shadow: 0 0 0 0 !important;
+}
+
+.remember {
+    color: white;
+}
+
+    .remember input {
+        width: 20px;
+        height: 20px;
+        margin-left: 15px;
+        margin-right: 5px;
+    }
+
+.login_btn {
+    color: black;
+    background-color: rgba(141,182,226,0.9);
+    width: 100px;
+}
+
+    .login_btn:hover {
+        color: black;
+        background-color: white;
+    }
+
+.links {
+    color: white;
+}
+
+    .links a {
+        margin-left: 4px;
+    }

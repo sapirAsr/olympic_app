@@ -1,11 +1,11 @@
 function open_login_page() {
     var x = document.getElementById("myGrid");
-    window.location.href = "new_login.html";
+    window.location.href = "login.html";
 }
 
 function open_sign_up_page() {
     var x = document.getElementById("myGrid");
-    window.location.href = "new_signup.html";
+    window.location.href = "signup.html";
 }
 
 function open_ask_us_page() {
@@ -19,7 +19,7 @@ function open_tests_menu_page() {
 
 
 function open_home_page() {
-    window.location.href = "new_feed.html";
+    window.location.href = "feed.html";
 }
 
 

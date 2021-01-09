@@ -1,33 +1,14 @@
-
-/* {
+* {
     margin: 0px;
     padding: 0px;
     font: 16px 'Source Sans Pro', sans-serif;
     border: none;
     box-sizing: border-box;
+    border-radius: 15px;
 }
 
 html, body {
-    background: #2E706C;
-    text-align: center;
-    width: 50%;
-    height: 50%;
-    margin: 5rem;
-    bottom: 2rem;
-    right: 2rem;
-}
-
-html {
-    display: table;
-}
-
-body {
-    display: table-cell;
-    vertical-align: middle;
-}*/
-
-html, body {
-    background: #2E706C;
+    background: #d5eff6;
     text-align: center;
 }
 
@@ -35,11 +16,14 @@ html, body {
     margin: 70px 15% 0px 15%;
     position: relative;
     width: calc(100% - 500px);
+    font-family: fantasy;
+    font-weight: 100;
+    color: #1c486e;
 
 }
 
 #quiz h1 {
-    color: #FAFAFA;
+    color: #1c486e;
     font-weight: 600;
     font-size: 36px;
     text-transform: uppercase;
@@ -51,24 +35,24 @@ html, body {
         float: right;
         margin: 8px 0px 0px 8px;
         padding: 4px 8px;
-        background: #9ACFCC;
-        color: #00403C;
+        background: rgba(141,182,226,0.9);
+        color: #1c486e;
         font-size: 14px;
         cursor: pointer;
         outline: none;
     }
 
     #quiz button:hover {
-        background: #36a39c;
+        background: #4a8ac2;
         color: #FFF;
     }
 
-        #quiz button:disabled {
-            opacity: 0.5;
-            background: #9ACFCC;
-            color: #00403C;
-            cursor: default;
-        }
+    #quiz button:disabled {
+        opacity: 0.5;
+        background: #a7d7e2;
+        color: #463f3f;
+        cursor: default;
+    }
 
 #question {
     padding: 20px;
@@ -90,21 +74,21 @@ html, body {
         display: inline-block;
         margin: 4px;
         padding: 8px;
-        background: #FAE3BB;
-        color: #4C3000;
+        background: rgba(141,182,226,0.9);
+        color: #1c486e;
         width: calc(50% - 8px);
         min-width: 50px;
         cursor: pointer;
     }
 
         #question label:hover {
-            background: #EBBB67;
+            background: #4a8ac2;
         }
 
-    #question input[type=radio]:checked + label {
-        background: #CB8306;
-        color: #FAFAFA;
-    }
+        #question input[type=radio]:checked + label {
+            background: #1c486e;
+            color: #FAFAFA;
+        }
 
 #quiz-results {
     display: flex;
@@ -144,17 +128,3 @@ html, body {
     border-radius: 0;
 }
 
-/* Add a gray background color and some padding to the footer */
-footer {
-    background-color: #f2f2f2;
-    padding: 25px;
-}
-
-.carousel-inner img {
-    width: 100%; /* Set width to 100% */
-    margin: auto;
-    max-height: 300px;
-}
-
-
-    

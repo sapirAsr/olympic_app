@@ -7,7 +7,7 @@
                 let feedPost = JSON.parse(this.responseText);
                 for (i = 0; i < feedPost.length; i++) {
                     var str = "<div class='panel'><div class='media-block'>";
-                    str += "<a class='media-left'> <img class='img-circle img-sm' alt='Profile Picture' src='pictures/" + i + ".png'></a>";
+                    str += "<a class='media-left'> <img class='img-circle img-sm' alt='Profile Picture' src='lib/" + i + ".png'></a>";
                     str += "<div class='media-body'> <div class='mar-btm'>";
                     str += "<a class='btn-link text-semibold media-heading box-inline'>" + feedPost[i].sport + "</a>";
                     str += "<p class='text-muted text-sm'><i class='fa fa-mobile fa-lg'></i>" + feedPost[i].date.slice(0,10) + "</p></div>";

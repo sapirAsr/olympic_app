@@ -50,7 +50,7 @@ function show_admins() {
             if (this.status === 200) {
                 let adminlist = JSON.parse(this.responseText);
                 if (adminlist.length == 0) {
-                    var str = "<div>" + "You don't have admin permission"+ "<br/>"+"go to Tests tab" + "</div> <br/>";
+                    var str = "<div>" + "You haven't completed any test yet.. "+ "<br/>"+"Go to the Tests tab to try your best!" + "</div> <br/>";
                     $("#admin_list").append(str);
                 }
                 for (i = 0; i < adminlist.length; i++) {

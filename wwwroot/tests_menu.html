@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>Test Menu</title>
+    <link rel="icon" href="lib/lamp.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -50,7 +51,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="#" onclick="open_home_page()">Home</a></li>
                     <li class="active"><a href="#">Tests</a></li>
-                    <li><a href="#" onclick="open_ask_us_page()">Ask us</a></li>
+                    <li><a href="#" onclick="open_ask_us_page()">Search</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" onclick="open_profile_page()"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
@@ -82,12 +83,12 @@
         <!-- Photo Grid -->
         <div class="row">
             <div class="col-md-12">
-                <img src="pictures/weight.png" style="width:10%">
-                <img src="pictures/basketball.png" style="width:10%">
-                <img src="pictures/judo.svg" style="width:10%">
-                <img src="pictures/lamp.png" style="width:10%">
-                <img src="pictures/pingpong.jfif" style="width:10%">
-                <img src="pictures/swimming.png" style="width:10%">
+                <img src="lib/weight.png" style="width:10%">
+                <img src="lib/basketball.png" style="width:10%">
+                <img src="lib/judo.svg" style="width:10%">
+                <img src="lib/lamp.png" style="width:10%">
+                <img src="lib/pingpong.jfif" style="width:10%">
+                <img src="lib/swimming.png" style="width:10%">
             </div>
         </div>
 
@@ -97,7 +98,7 @@
                 var sport_name = document.getElementById("Select_Sport").value;
                 if (sport_name != "base") {
                     sessionStorage.setItem('sport_field', sport_name);
-                    window.location.href = "navbar.html";
+                    window.location.href = "quiz.html";
                 }
                 else {
                     alert("Please select sport field");

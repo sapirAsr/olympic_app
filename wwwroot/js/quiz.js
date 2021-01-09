@@ -275,3 +275,5 @@ $(document).ready(function () {
     var quiz_container = $('#quiz');
     quiz.render(quiz_container);
 });
+
+

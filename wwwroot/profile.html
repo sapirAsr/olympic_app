@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>Profile</title>
+    <link rel="icon" href="lib/lamp.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -17,7 +18,7 @@
 </head>
 <style>
     .profile-content {
-        background-image: url("pictures/icons_bg.jpeg");
+        background-image: url("lib/icons_bg.jpeg");
         background-repeat:no-repeat;
         background-size:contain;
     }
@@ -43,10 +44,10 @@ Licensed under MIT
       <ul class="nav navbar-nav">
         <li><a href="#" onclick="open_home_page()">Home</a></li>
         <li><a href="#" onclick="open_tests_menu_page()">Tests</a></li>
-        <li><a href="#" onclick="open_ask_us_page()">Ask Us</a></li>
+        <li><a href="#" onclick="open_ask_us_page()">Search</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Profile</a></li>
+        <li class="active"><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
       </ul>
     </div>
   </div>
@@ -58,7 +59,7 @@ Licensed under MIT
       <div class="profile-sidebar">
         <!-- SIDEBAR USERPIC -->
         <div class="profile-userpic">
-          <img src="pictures/judo.svg" class="img-responsive" alt="">
+          <img src="lib/judo.svg" class="img-responsive" alt="">
         </div>
         <!-- END SIDEBAR USERPIC -->
         <!-- SIDEBAR USER TITLE -->
@@ -73,18 +74,33 @@ Licensed under MIT
         <!-- END SIDEBAR BUTTONS -->
         <!-- SIDEBAR MENU -->
          <div class="profile-usermenu">
-          <ul class="nav">
-            <li>
-              <a href="#"  id="settings_tab" onclick="open_change_details_page()">
-              <i class="glyphicon glyphicon-user" ></i>
-              Account Settings </a>
-            </li>
-            <li>
-              <a href="#" onclick="open_admin_list_page()">
-              <i class="glyphicon glyphicon-ok"></i>
-              Your Tests </a>
-            </li>
-          </ul>
+             <ul class="nav">
+                 <li>
+                     <a href="#" id="log_out" onclick="log_out()">
+                         <i class="glyphicon glyphicon-log-out"></i>
+                         Log Out
+                     </a>
+                     <script>
+                         function log_out() {
+                             sessionStorage.setItem('Password', "");
+                             sessionStorage.setItem('Username', "");
+                             open_first_page();
+                         }
+                     </script>
+                 </li>
+                 <li>
+                     <a href="#" id="settings_tab" onclick="open_change_details_page()">
+                         <i class="glyphicon glyphicon-pencil"></i>
+                         Change Password
+                     </a>
+                 </li>
+                 <li>
+                     <a href="#" onclick="open_admin_list_page()">
+                         <i class="glyphicon glyphicon-ok"></i>
+                         Your Tests
+                     </a>
+                 </li>
+             </ul>
         </div> 
         <!-- END MENU -->
       </div>
@@ -92,9 +108,6 @@ Licensed under MIT
     <div class="col-md-9" >
             <div class="profile-content" id="profile_content">
                 <iframe id="show_details" style="border:none;" height="300px" name="targetframe"></iframe>
-
-            <!--<iframe src="change_details.html" style="border:none;" height="300px" name="targetframe">
-            </iframe>-->
             </div>
     </div>
   </div>

@@ -795,7 +795,7 @@ namespace olympic_app.DB
                 dataReader = cmd.ExecuteReader();
                 while (dataReader.Read())
                 {
-                    result.Add(dataReader["User_name"] + "");
+                    result.Add(dataReader["Sport"] + "");
                 }
                 //dataReader.Close();
                 //return result;
