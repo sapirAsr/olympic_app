@@ -15,7 +15,7 @@ namespace olympic_app.DB
     {
         private MySqlConnection connection;
         private MySqlDataReader dataReader;
-        
+
         //Constructor
         public DBSearch(MySqlConnection conn)
         {
@@ -80,7 +80,7 @@ namespace olympic_app.DB
             }
             catch(MySqlException){}
             if (result.Count == 0){
-                result.Add("Sorry, there are no results that match this search.\n Search for something else!");
+                result.Add("Sorry, there are no results that match this search.<br>Search for something else!");
             }
            //close Data Reader
             if(dataReader != null){

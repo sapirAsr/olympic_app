@@ -260,20 +260,25 @@ function filter(atr,answer){
             if (this.status === 200) {
                 let results = JSON.parse(this.responseText);
                 console.log(results);
-                console.log(results.length); 
+                console.log(typeof(results[0]));
+                console.log(results[0]); 
                 var flag = 0; 
-                for (i = 0; i < results.length; i++) {
-                    if (i >= 12) {
-                        $("#" + answer).append("<li class='answer_display'>" + results[i] + "</li>");
-                        flag =1 ;    
-                    } 
-                    else{
-                    $("#" + answer).append("<li class ='answer_display'>" + results[i] + "</li>"); 
-                    }    
-                }
-                // if(flag ==1) {
-                //     $("#answer_filter").append('<a href="#" onclick="next()" class="next round">&#8250;</a>');
+                // var ans_medal = document.getElementById('answer_medal');
+                // if (results[0] == "Sorry, there are no results that match this search.<br>Search for something else!"){
+                //     //if ($('#answer_medal').css('column-count') == '4') {
+                //         //ans_medal = document.getElementById('answer_medal');
+                //         ans_medal.style.removeProperty("column-count");
+                //         ans_medal.style.removeProperty("column-gap");
+                //         ans_medal.style.removeProperty("margin");
+                //     //}
+                //     //document.getElementById("answer_filter").style.display = "inline-block";
+                // } else {
+                //     ans_medal.style.columns= "20px 4";
+                //     ans_medal.style.margin = "5px 0 0 0";
                 // }
+                for (i = 0; i < results.length; i++) {
+                    $("#" + answer).append("<li class ='answer_display'>" + results[i] + "</li>");   
+                }
                 document.getElementById(answer).style.display = "inline-block";
                 
             } else {                   
