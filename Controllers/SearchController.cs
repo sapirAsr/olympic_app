@@ -109,7 +109,7 @@ namespace olympic_app.Controllers
                 dictAtr.Add(temp[0], temp[1]);
 
             }
-            return manager.BasicFilter(dictAtr);
+            return manager.Filter(dictAtr);
         }
 
 /**

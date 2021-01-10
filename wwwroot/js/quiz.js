@@ -124,22 +124,25 @@ Quiz.prototype.render = function (container) {
 
         }
         if (score >= 3) {
-            sessionStorage.setItem('isAdmin', true);
             var admin_username = sessionStorage.getItem('Username');
             var cur_sport_field = sessionStorage.getItem('sport_field');
+            var cur_admin_field = sessionStorage.getItem('IsAdmin');
+            console.log(cur_admin_field);
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (this.readyState === 4) {
                     if (this.status === 200) {
                         console.log(this.responseText);
                         console.log("BLAAAAAAA");
+                        sessionStorage.setItem('IsAdmin', true);
+
                     } else {
                         console.log("Error", xhttp.statusText);
                         alert(xhttp.statusText);
                     }
                 }
             };
-            xhttp.open("POST", "https://localhost:5001/api/Users/admin/" + admin_username + "&" + cur_sport_field + "&true", true);
+            xhttp.open("POST", "https://localhost:5001/api/Users/admin/" + admin_username + "&" + cur_sport_field + "&" + cur_admin_field, true);
             xhttp.send();
         }
 
@@ -163,7 +166,7 @@ Quiz.prototype.render = function (container) {
         $('#submit-button').slideUp();
         $('#next-question-button').slideUp();
         $('#prev-question-button').slideUp();
-        $('#quiz-retry-button').sideDown();
+       // $('#quiz-retry-button').sideDown();
 
     });
 
