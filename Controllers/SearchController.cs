@@ -112,50 +112,5 @@ namespace olympic_app.Controllers
             return manager.Filter(dictAtr);
         }
 
-/**
-        
-        [HttpPost]
-        // /api/Search/basic_filter
-        [ActionName("basic_filter")]
-        //returns user with the info if this user is admin   
-        public List <string> [] BasicFilter(string table, List<string> atributes)
-   
-        public User Post(string )
-        {
-            return manager.UserLogin(user.Username, user.Password);
-        }
-        
-        [HttpPost]
-        // /api/Users/sign_up
-        [ActionName("best_athlete")]
-        public bool SignupPost(User user)
-        {
-            //User user = new User();
-            return manager.UserSignup(user.Username, user.Password);
-        }
-        [HttpPost]
-        // /api/Users/change_password
-        [ActionName("change_password")]
-        public bool UpdatePassword(User user)
-        {
-            return manager.ChangePassword(user.Username, user.Password);
-        }
-        [HttpDelete("{username}")]
-        [ActionName("delete")]
-        // /api/Users
-        public void DeleteUser(string username)
-        {
-            manager.DeleteUser(username);
-        }
-
-        [HttpPost]
-        // /api/Users/sign_up
-        [ActionName("admin")]
-        public bool UpdateAdmin(User user,string sport, bool isAdmin)
-        {
-            return manager.UpdateAdmin(user, sport, isAdmin);
-        }
-        */
-
     }
 }

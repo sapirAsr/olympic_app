@@ -24,16 +24,20 @@ namespace olympic_app.DB
         {
             connection = conn;
             dbGeneral = gen;
+            //getting the lists that the feed needs for creating posts
             sportsList = dbGeneral.GetSportList();
             gamesList = dbGeneral.GetGamesList();
             teamsList = dbGeneral.GetTeamsList();
         }
+
+        //function generate different posts for the feed
         public void GeneratePosts(){
             List<List<string>> temp = new List<List<string>>();
             List<string> check = new List<string>();                    
-            int numberOfPosts = 1;
+            int numberOfPosts = 50;
             for (int i = 0; i < numberOfPosts; i++)
             {
+                // best athlete post
                 var random = new Random();
                 int index = random.Next(sportsList.Count);
                 string sport = sportsList[index];
@@ -44,6 +48,7 @@ namespace olympic_app.DB
                     result += ".<br> The best athlete is the athlete who won the most medals.";
                     InsertIntoFeedTable(result,sport);
                 }
+                //heaviest athlete sport
                 index = random.Next(sportsList.Count);
                 sport = sportsList[index];
                 result = "Did you know that the heaviest athlete in the field of " + sport + " is ";
@@ -52,7 +57,7 @@ namespace olympic_app.DB
                     result += temp[0][0] + "?<br> This athlete weight is " + temp[0][1] + "kg.";
                     InsertIntoFeedTable(result,sport);
                 }
-
+                // leanest athlete post
                 index = random.Next(sportsList.Count);
                 sport = sportsList[index];
                 result = "Did you know that the leanest athlete in the field of " + sport + " is ";
@@ -62,6 +67,7 @@ namespace olympic_app.DB
                     result += temp[0][0] + "?<br> This athlete weight is " + temp[0][1] + "kg.";
                     InsertIntoFeedTable(result,sport);
                 }
+                // tallest athlete
                 index = random.Next(sportsList.Count);
                 sport = sportsList[index];
                 result = "Did you know that the tallest athlete in the field of " + sport + " is ";
@@ -70,6 +76,7 @@ namespace olympic_app.DB
                     result += temp[0][0] + "?<br> This athlete height is " + temp[0][1] + "cm.";
                     InsertIntoFeedTable(result,sport);
                 }
+                //shortest athlete
                 index = random.Next(sportsList.Count);
                 sport = sportsList[index];
                 result = "Did you know that the shortest athlete in the field of " + sport + " is ";
@@ -78,6 +85,7 @@ namespace olympic_app.DB
                     result += temp[0][0] + "?<br> This athlete height is " + temp[0][1] + "cm.";
                     InsertIntoFeedTable(result,sport);
                 }
+                // how many athletes represented a team
                 index = random.Next(teamsList.Count);
                 string team = teamsList[index];
                 result = "Did you know that the " + team + " team was represented by ";
@@ -87,6 +95,7 @@ namespace olympic_app.DB
                     result += number + " athletes?<br>";
                     InsertIntoFeedTable(result, "General");
                 }
+                //different events in olympis games
                 index = random.Next(sportsList.Count);
                 sport = sportsList[index];
                 result = "Did you know that there are ";
@@ -96,6 +105,7 @@ namespace olympic_app.DB
                     result += number + " different events in the " + sport +" field?<br>";
                     InsertIntoFeedTable(result, "General");
                 }
+                // where an olympic took place
                 index = random.Next(gamesList.Count);
                 string game = gamesList[index];
                 result = "Did you know that the " + game + "  Olympics took place in ";
@@ -105,6 +115,7 @@ namespace olympic_app.DB
                     result += check[1] +", " + check[0] + "?<br>";
                     InsertIntoFeedTable(result, sport);
                 }
+                // average height of athletes in a specific field
                 index = random.Next(sportsList.Count);
                 sport = sportsList[index];
                 result = "Did you know that the average height in the field of " + sport + " is ";
@@ -115,6 +126,7 @@ namespace olympic_app.DB
                     result += maleAvg + " for men and " + femaleAvg + " for women?<br>";
                     InsertIntoFeedTable(result, sport);
                 }
+                // won a medal post
                 index = random.Next(sportsList.Count);
                 sport = sportsList[index];
                 result = "Did you know that ";
@@ -127,7 +139,8 @@ namespace olympic_app.DB
       
             }   
         }
-        
+
+        //this function recieve post content and sport related to it and insert this post to Feed table
         public void InsertIntoFeedTable(string content, string sport){
             string date = DateTime.Today.ToString("yyyy-MM-dd");      
             string queryString = @"INSERT INTO olympicapp.feed (Post_content,Sport,Date) VALUES ('" + content + "',\"" +  sport + "\",\"" + date + "\");";
@@ -143,9 +156,15 @@ namespace olympic_app.DB
             }        
         }
         
-         
+        //function choose 10 random post from Feed table, check the number of likes of each post,
+        //and returns list of Posts.
         public List<Post> FeedPosts(){
-            GeneratePosts();
+            Random gen = new Random();
+            int prob = gen.Next(100);
+            // create new posts randomly
+            if(prob <= 20) {
+                GeneratePosts();
+            }
             string queryString = "SELECT * FROM olympicapp.feed ORDER BY RAND() LIMIT 10;";
             List<Post> posts =  new List<Post>();
             try{
@@ -169,6 +188,7 @@ namespace olympic_app.DB
             return posts;
         }
 
+        //function recieve post_id and returns the number of likes of this post.
          public int GetNumberOfLikes(string post_id){
             string queryString = "SELECT COUNT(Post_id) AS NumberOfLikes FROM" +
                                     "(SELECT Post_id FROM olympicapp.likes WHERE Post_id =" + post_id +") AS temp";
@@ -195,7 +215,7 @@ namespace olympic_app.DB
         }
 
 
-
+        //function recieves a random team and returns the number of athletes that represented this team.
        public string GetNumberOfAthletesFromTeam (string team)
         {
             var queryString = @"SELECT COUNT(distinct athletes.Name) as number FROM olympicapp.athletes WHERE athletes.Team='" + team +"';";
@@ -216,6 +236,8 @@ namespace olympic_app.DB
             } 
             return result;
         }
+        
+        //function recieves sport and returns the number of events in this sport
         public string GetDistinctEvents(string sport)
         {
             var queryString = @"SELECT COUNT(distinct event_types.event) as number FROM olympicapp.event_types WHERE event_types.Sport='" + sport + "';";
@@ -236,6 +258,8 @@ namespace olympic_app.DB
             } 
             return result;
         }
+
+        //function recieves aport and gender and returns the avarage height of this genderin the specific sport.
         public string GetAvgOfGender(string sport, string gender)
         {
             var queryString = @"SELECT ROUND(AVG(athletes.Height),2) as avg FROM olympicapp.athletes WHERE athletes.Sex='" + gender +"'" +
@@ -259,6 +283,8 @@ namespace olympic_app.DB
             } 
             return result;
         }
+
+        //function recieves a aport and returns a random win(athlete and medal) from this sport.
         public List<string> GetRandomWin(string sport)
         {
             var queryString = "(SELECT olympicapp.athletes.Name, olympicapp.medals.Medal " +
@@ -285,7 +311,9 @@ namespace olympic_app.DB
             } 
             return result;
         }
-                public bool LikePost(string username, string post_id){
+
+        //function recieves post id and user name and update Likes table
+        public bool LikePost(string username, string post_id){
             string queryString ="INSERT INTO olympicapp.likes (User_name,Post_id)"+
                                 "VALUES (\""+username+"\","+ post_id+");";
             List<string> result = new List<string>();
@@ -303,6 +331,7 @@ namespace olympic_app.DB
             }             
             return false;
         }
+        //function recieves post_id and username and deletes from the Likes table.
         public bool DislikePost(string username, string post_id)
         {
             string queryString = "DELETE FROM olympicapp.likes WHERE User_name='" + username + "' and Post_id = " + post_id + ";";

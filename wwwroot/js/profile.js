@@ -1,5 +1,6 @@
-﻿function delete_user() {
-    // client needs to provide the username and if its admin adding it in the end of the url by &
+﻿﻿//delete user function
+//send the details of the current user to the server, delete this account and open first page
+function delete_user() {
     var username = sessionStorage.getItem('Username');
     var isadmin = sessionStorage.getItem('IsAdmin');
     var temp = "";
@@ -8,40 +9,43 @@
     }
     fetch("https://localhost:5001/api/Users/delete/" + username + temp, {
         method: 'DELETE',
+    }).catch(function () {
+        alert("Connection problem, please try again later.");
     });
+
     open_first_page();
 }
 
-function submit_changes() {
-    window.alert("Are you sure you want to save changes?");
-}
-
+// display the username of the current account on profile page
 function show_username() {
     var username_place = document.getElementById("Username");
     var cur_username = sessionStorage.getItem('Username');
     username_place.textContent = cur_username;
 }
 
+// get a new password from user
+// send to the server the username of the current account and the new password and update it 
 function update_passord() {
     var name = sessionStorage.getItem('Username');
     var new_password = document.getElementById("Password").value;
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState === 4) {
-            if (this.status === 200) {
-                alert("Password has changed successfully");
-                document.getElementById("Password").value = "";
-                console.log(this.responseText);
-            } else {
-                console.log("Error", xhttp.statusText);
-                alert(xhttp.statusText);
+    if (alphanumeric(new_password)) {
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    alert("Password has changed successfully");
+                    document.getElementById("Password").value = "";
+                } else {
+                    alert("Connection problem, please try again later.");
+                }
             }
-        }
-    };
-    xhttp.open("POST", "https://localhost:5001/api/Users/change_password/" + name + "&" + new_password, true);
-    xhttp.send();
+        };
+        xhttp.open("POST", "https://localhost:5001/api/Users/change_password/" + name + "&" + new_password, true);
+        xhttp.send();
+    }
 }
 
+//Displays the sport fields in which the user has passed the tests
 function show_admins() {
     var name = sessionStorage.getItem('Username');
     let xhttp = new XMLHttpRequest();
@@ -50,7 +54,7 @@ function show_admins() {
             if (this.status === 200) {
                 let adminlist = JSON.parse(this.responseText);
                 if (adminlist.length == 0) {
-                    var str = "<div>" + "You haven't completed any test yet.. "+ "<br/>"+"Go to the Tests tab to try your best!" + "</div> <br/>";
+                    var str = "<div>" + "You haven't completed any test yet.. " + "<br/>" + "Go to the Tests tab to try your best!" + "</div> <br/>";
                     $("#admin_list").append(str);
                 }
                 for (i = 0; i < adminlist.length; i++) {
@@ -58,11 +62,10 @@ function show_admins() {
                     $("#admin_list").append(str);
                 }
             } else {
-                    console.log("Error", xhttp.statusText);
-                    alert(xhttp.statusText);
+                alert("Connection problem, please try again later.");
             }
         }
     };
-        xhttp.open("GET", "https://localhost:5001/api/Users/adminlist/" + name, true);
+    xhttp.open("GET", "https://localhost:5001/api/Users/adminlist/" + name, true);
     xhttp.send();
 }

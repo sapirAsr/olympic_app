@@ -15,6 +15,7 @@ namespace olympic_app.DB
     {
         private MySqlConnection connection;
         private MySqlDataReader dataReader;
+        // lists for the app to use
         private List<string> sportsList = new List<string>();
         private List<string> gamesList = new List<string>();
         private List<string> teamsList = new List<string>();
@@ -27,7 +28,7 @@ namespace olympic_app.DB
             SetLists();
         }
 
-        //list
+        //setting all lists for the app to use only one time
         public void SetLists(){
             sportsList = SelectColFromTable("Sport","event_types", " ORDER BY Sport ASC");
             gamesList = SelectColFromTable("Game","olympic_games", " ORDER BY Game ASC");
@@ -37,7 +38,7 @@ namespace olympic_app.DB
             yearsList =  SelectColFromTable("Birth_year","athletes"," WHERE Birth_year<>'NA' ORDER BY Birth_year ASC");
 
         }
-         // select column function
+         // select column from a specific table, helper can be apllied for more conditions
         public List<string> SelectColFromTable(string col, string table, string helper){
             string query =  "SELECT DISTINCT "+ col + " FROM olympicapp."+ table +  helper + ";";
             List<string> result =  new List<string>();
@@ -57,6 +58,7 @@ namespace olympic_app.DB
             return result;            
         }
 
+        //getters of the lists
          public List<string> GetSportList()
         {
             return sportsList;
@@ -82,6 +84,8 @@ namespace olympic_app.DB
             return yearsList;           
         }
         
+        // function gets a sport a parameter and order
+        // and returns the names of the athletes in the sport that are the most by the parameter and order
         public List<List<string>> TheMostXAthlete(string sport, string parameter, string order){
 
             var queryString = "SELECT Name,"+ parameter +" FROM" +
@@ -107,8 +111,10 @@ namespace olympic_app.DB
             }   
             return result;
         }
-       
-       //get the best athlete with the helper " AND  medal <> \"NA\"" and if helper = "" get the most participant
+      
+       //function gets a sport and helper
+       //gets the names of the 4 best athlete with the helper  AND  medal <> \"NA\"" "
+       //gets the names of 4 most participants with the helper -""
         public List<string> TheBestXAthlete(string sport , string helper){
             var queryString = "SELECT Name FROM olympicapp.athletes WHERE Athlete_Id IN (SELECT Athlete_Id FROM (" +
             "SELECT Athlete_Id, COUNT(*) AS magnitude FROM (SELECT Athlete_Id, Medal FROM olympicapp.medals WHERE ((event_id IN " +
@@ -135,6 +141,7 @@ namespace olympic_app.DB
 
         }
 
+        // function gets a game and returns where it took place (city,country)
         public List<string> LocationOfOlympicGame(string game){
             var queryString = "SELECT Country,City FROM countries WHERE City =(SELECT City FROM olympic_games WHERE Game = \"" + game + "\")";;
             List<string> result = new List<string>();

@@ -2,6 +2,7 @@
 <html>
 <head>
     <script src="js/nav_functions.js"></script>
+    <script src="js/login.js"></script>
     <style>
         body, h1 {
             color: #467cc4;
@@ -19,27 +20,30 @@
     </style>
 </head>
 
-    <div class="w3-opacity">
-        <div class="w3-clear"></div>
-        <header class="w3-center w3-margin-bottom">
-            <h2>Change Details</h2>
-            </header>
-        </div>
-    <body>
-        <form>
-            <div class="container">
-                <!--<p>Please fill in this form to change your password.</p>-->
-                <hr>
-                <label for="Password"><b>Enter new password</b></label>
-                <input type="password" placeholder="Enter Password" name="Password" id="Password" required>
 
-                <div class="clearfix">
-                    <br />
-                    <button type="button" class="signupbtn btn btn-primary" onclick="update_passord()">Update</button>
-                </div>
+<div class="w3-opacity">
+    <div class="w3-clear"></div>
+    <header class="w3-center w3-margin-bottom">
+        <!--Title-->
+        <h2>Change Details</h2>
+    </header>
+</div>
+<body>
+    <form>
+        <div class="container">
+            <!--<p>Please fill in this form to change your password.</p>-->
+            <hr>
+            <!--user inputs-->
+            <label for="Password"><b>Enter new password</b></label>
+            <input type="password" placeholder="Enter Password" name="Password" id="Password" required>
+
+            <div class="clearfix">
+                <br />
+                <button type="button" class="signupbtn btn btn-primary" onclick="update_passord()">Update</button>
             </div>
-        </form>
-        <!-- javascript file -->
-        <script src="js/profile.js"></script>
-    </body>
+        </div>
+    </form>
+    <!-- javascript file -->
+    <script src="js/profile.js"></script>
+</body>
 </html>

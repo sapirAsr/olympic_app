@@ -1,4 +1,6 @@
-﻿function load_feed_news(){
+﻿//display feed news
+//get list of 10 posts from server and display each one in home page
+function load_feed_news() {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
@@ -10,7 +12,7 @@
                     str += "<a class='media-left'> <img class='img-circle img-sm' alt='Profile Picture' src='lib/" + i + ".png'></a>";
                     str += "<div class='media-body'> <div class='mar-btm'>";
                     str += "<a class='btn-link text-semibold media-heading box-inline'>" + feedPost[i].sport + "</a>";
-                    str += "<p class='text-muted text-sm'><i class='fa fa-mobile fa-lg'></i>" + feedPost[i].date.slice(0,10) + "</p></div>";
+                    str += "<p class='text-muted text-sm'><i class='fa fa-mobile fa-lg'></i>" + feedPost[i].date.slice(0, 10) + "</p></div>";
                     str += "<p>" + feedPost[i].content + "</p>";
                     str += "<div class='pad-ver'><div class='btn-group'>";
                     str += "<a class='btn btn-sm btn-default btn-hover-success' onclick = like(" + feedPost[i].postId + ") id='like" + feedPost[i].postId + "'><i class='zmdi zmdi-thumb-up'></i></a>";
@@ -20,14 +22,16 @@
 
                 }
             } else {
-                console.log("Error", xhttp.statusText);
-                alert(xhttp.statusText);
+                alert("Connection problem, please try again later.");
             }
         }
     };
     xhttp.open("GET", "https://localhost:5001/api/Feed", true);
     xhttp.send();
 }
+
+// get an ID of a post
+// send username of the current user and ID of the post to server and update the amount of likes (add one like to the list) 
 function like(post_id) {
     var username = sessionStorage.getItem('Username');
     let xhttp = new XMLHttpRequest();
@@ -38,14 +42,16 @@ function like(post_id) {
                 document.getElementById("like" + post_id).style.backgroundColor = "#337ab7";
                 document.getElementById("dislike" + post_id).style.backgroundColor = "#fff";
             } else {
-                console.log("Error", xhttp.statusText);
-                alert(xhttp.statusText);
+                alert("Connection problem, please try again later.");
             }
         }
     };
     xhttp.open("POST", "https://localhost:5001/api/Feed/like/" + username + "&" + post_id, true);
     xhttp.send();
 }
+
+// get an ID of a post
+// send username of the current user and ID of the post to server and update the amount of likes (add one like to the list) 
 function dislike(post_id) {
     console.log(document.getElementById("like" + post_id).style.backgroundColor);
     if (document.getElementById("like" + post_id).style.backgroundColor == "rgb(51, 122, 183)") {
@@ -58,16 +64,18 @@ function dislike(post_id) {
                     update_number_of_likes(post_id);
                     document.getElementById("dislike" + post_id).style.backgroundColor = "#f19c9c";
                 } else {
-                    console.log("Error", xhttp.statusText);
-                    alert(xhttp.statusText);
+                    alert("Connection problem, please try again later.");
                 }
             }
         };
         xhttp.open("POST", "https://localhost:5001/api/Feed/dislike/" + username + "&" + post_id, true);
         xhttp.send();
     }
-    
+
 }
+
+// get- ID of one post
+// return- amount of likes for this post
 function update_number_of_likes(post_id) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -76,8 +84,7 @@ function update_number_of_likes(post_id) {
                 let number_of_likes = JSON.parse(this.responseText);
                 document.getElementById(post_id).textContent = number_of_likes + " Liked this!";
             } else {
-                console.log("Error", xhttp.statusText);
-                alert(xhttp.statusText);
+                alert("Connection problem, please try again later.");
             }
         }
     };

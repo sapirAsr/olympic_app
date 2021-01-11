@@ -1,5 +1,9 @@
-﻿var userLogin;
+﻿﻿var userLogin;
 
+// login function
+// get username and password from html form
+// verify if the username exists in the database and the password is match to this username
+// if true- open home page, else- send an alert of wrong details
 function login() {
     var username = document.getElementById('Username').value;
     var password = document.getElementById('Password').value;
@@ -12,14 +16,13 @@ function login() {
                     sessionStorage.setItem('Username', username);
                     sessionStorage.setItem('Password', userLogin.password);
                     sessionStorage.setItem('IsAdmin', userLogin.isAdmin);
-                    open_home_page();                           
+                    open_home_page();
                 }
                 else {
-                        alert("Wrong username or password.");
+                    alert("Wrong username or password.");
                 }
             } else {
-                console.log("Error", xhttp.statusText);
-                alert(xhttp.statusText);
+                alert("Connection problem, please try again later.");
             }
         }
     };
@@ -27,10 +30,14 @@ function login() {
     xhttp.send();
 }
 
+// sign up function
+// get username and password from html form
+// check if the username exists in the database
+// if not- create a new user and save his details in the database, else- send an alert of an existing username
 function signup() {
     var username = document.getElementById('Username').value;
     var password = document.getElementById('Password').value;
-    if(alphanumeric(username) && alphanumeric(password)) {
+    if (alphanumeric(username) && alphanumeric(password)) {
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4) {
@@ -40,14 +47,13 @@ function signup() {
                     if (userLogin.username != null) {
                         sessionStorage.setItem('Username', username);
                         open_home_page();
-                        
+
                     }
                     else {
                         alert("Username already exists.\n");
                     }
                 } else {
-                    console.log("Error", xhttp.statusText);
-                    alert(xhttp.statusText);
+                    alert("Connection problem, please try again later.");
                 }
             }
         };
@@ -57,16 +63,13 @@ function signup() {
 }
 
 //Function to check letters and numbers
-function alphanumeric(inputtxt)
-{
-    var letterNumber = /^[0-9a-zA-Z]+$/;
-    if(inputtxt.match(letterNumber)) {
+function alphanumeric(inputtxt) {
+    var letterNumber = /^[0-9a-zA-Z_]+$/;
+    if (inputtxt.match(letterNumber)) {
         return true;
     }
-    else
-    { 
-        alert('Please input alphanumeric characters only');
-        return false; 
+    else {
+        alert('Please input alphanumeric characters and _ only');
+        return false;
     }
-  }
-  
+}

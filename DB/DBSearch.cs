@@ -22,6 +22,8 @@ namespace olympic_app.DB
             connection = conn;
         }
        
+       // gets a dictionary of values to search for
+       // returns a list of the results
         public List <string> Filter(Dictionary<string, string> dictAtr)
         {
             List< string > result = new List<string >();
@@ -43,6 +45,7 @@ namespace olympic_app.DB
                 selectStr = "Name";
                 table = "Athletes";
             }
+            // if we need to compare sport we need another table
             if (!flag){
                 if (dictAtr.ContainsKey("Sport")){
                         table = "(SELECT Athlete_id, Game_id, e.Event_id, Medal, Name, Sex, Height, Weight, Team,Birth_year,event, Sport " +
@@ -88,10 +91,5 @@ namespace olympic_app.DB
             }   
             return result;
         }
-
-
-
     }
-
-
 }

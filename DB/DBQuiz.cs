@@ -38,7 +38,7 @@ namespace olympic_app.DB
             {
                 getWorngAnswers(sport, theBestAthleteAnswers);
             }
-            string question = "Who's the best athlete in the field of " + sport + "?<br> Hint:The best athlete is the athlete who won the most medals.";
+            string question = "Who's the best athlete in the field of " + sport + "? Hint:The best athlete is the athlete who won the most medals.";
             Question q1 = new Question
             {
                 QuestionString = question,
@@ -118,12 +118,16 @@ namespace olympic_app.DB
             return questions;
         }
 
+        //function gets a list of athletes and a sport
+        //the function add to the list a list of athletes which arent match the question
+       
         public void getWorngAnswers(string sport, List<string> answers)
         {
-            List<string> list = get4randomAthletesBySport(sport);
+            List<string> list = Get4RandomAthletesBySport(sport);
             if (list.Count < 4)
             {
-                list.AddRange(get4randomAthletesBySport("Basketball"));
+                // if there is less than 4 athletes in this sport will take some athlets from basketball
+                list.AddRange(Get4RandomAthletesBySport("Basketball"));
             }
             for (int i = 0; i < list.Count; i++)
             {
@@ -138,12 +142,14 @@ namespace olympic_app.DB
             }
 
         }
+        //function gets a list of lists of athletes and a sport
+        //the function add to the list a list of athletes which arent the tallest athletes in the sport that was given
         public void getWorngAnswersTallest(string sport, List<List<string>> answers)
         {
-            List<string> list = get4randomAthletesBySport(sport);
+            List<string> list = Get4RandomAthletesBySport(sport);
             if (list.Count < 4)
             {
-                list.AddRange(get4randomAthletesBySport("Basketball"));
+                list.AddRange(Get4RandomAthletesBySport("Basketball"));
             }
             for (int i = 0; i < 4; i++)
             {
@@ -155,7 +161,8 @@ namespace olympic_app.DB
             }
 
         }
-        public List<string> get4randomAthletesBySport(string sport){
+        //function returns a list of 4 athletes from the sport given
+        public List<string> Get4RandomAthletesBySport(string sport){
             var queryString = "(SELECT DISTINCT olympicapp.athletes.Name, olympicapp.medals.Medal " +
                               "FROM olympicapp.medals JOIN olympicapp.event_types " +
                               "ON olympicapp.medals.Event_id = olympicapp.event_types.Event_id JOIN olympicapp.athletes " +
@@ -179,6 +186,9 @@ namespace olympic_app.DB
             } 
             return result;
         }
+        
+        
+        // function returns the athlete that the condition matchs
         public string GetXByYWhereZFromAthletes(string x, string y, string z){
             var queryString = @"SELECT " + x +" From olympicapp.athletes WHERE "+ y +" = '" + z + "';";
             string result = "";
@@ -199,6 +209,7 @@ namespace olympic_app.DB
             return result;
         }
 
+        // function returns list of 3 years without the year that was given to it
         public List<string> WrongYears(string year){
             var queryString = "SELECT Birth_year From olympicapp.athletes WHERE Birth_year <> \"" + year + "\" LIMIT 3";
             List<string> result = new List<string>();
@@ -219,7 +230,7 @@ namespace olympic_app.DB
             return result;
         }
 
-     
+        // function returns list of 3 countries without the country that was given to it
         public List<string> WrongCountries(string country){
             var queryString = "SELECT DISTINCT Country From olympicapp.countries WHERE Country <> \"" + country + "\" LIMIT 3;";
             List<string> result = new List<string>();

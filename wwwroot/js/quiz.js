@@ -1,5 +1,7 @@
 var all_questions = [];
 
+// this function send to the server the sport field that the user chose
+// insert to list five questions about the chosen sport field
 function get_quiz() {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -7,8 +9,6 @@ function get_quiz() {
             if (this.status === 200) {
                 let questions = JSON.parse(this.responseText);
 
-                console.log(questions);
-                //all_questions = [];
                 for (i = 0; i < questions.length; i++) {
                     var ch = {
                         question_string: questions[i].questionString,
@@ -20,25 +20,21 @@ function get_quiz() {
                     all_questions.push(ch);
                 }
 
-                } else {
-                    console.log("Error", xhttp.statusText);
-                    alert(xhttp.statusText);
-                }
+            } else {
+                alert("Connection problem, please try again later.");
+            }
         }
     };
     var quiz_st = sessionStorage.getItem('sport_field');
     var st = "https://localhost:5001/api/Quiz/" + quiz_st;
-    //var st = "https://localhost:5001/api/Quiz/Basketball";
-    xhttp.open("GET", st , false);
-        xhttp.send();
-    }
-    
+    xhttp.open("GET", st, false);
+    xhttp.send();
+}
 
-// Array of all the questions and choices to populate the questions. This might be saved in some JSON file or a database and we would have to read the data in.
+
 get_quiz();
-//window.alert(sport_field.get());
-var quiz_st= sessionStorage.getItem('sport_field');
-alert("This is "+quiz_st + " quiz \n GOOD LUCK!");
+var quiz_st = sessionStorage.getItem('sport_field');
+alert("This is " + quiz_st + " quiz \n GOOD LUCK!");
 
 
 // An object for a Quiz, which will contain Question objects.
@@ -117,11 +113,6 @@ Quiz.prototype.render = function (container) {
             if (self.questions[i].user_choice_index === self.questions[i].correct_choice_index) {
                 score++;
             }
-
-            $('#quiz-retry-button').click(function (reset) {
-                quiz.render(quiz_container);
-            });
-
         }
         if (score >= 3) {
             var admin_username = sessionStorage.getItem('Username');
@@ -133,7 +124,6 @@ Quiz.prototype.render = function (container) {
                 if (this.readyState === 4) {
                     if (this.status === 200) {
                         console.log(this.responseText);
-                        console.log("BLAAAAAAA");
                         sessionStorage.setItem('IsAdmin', true);
 
                     } else {
@@ -152,6 +142,7 @@ Quiz.prototype.render = function (container) {
         var message;
         if (percentage === 1) {
             message = 'Great job!'
+            confetti.start();
         } else if (percentage >= .6) {
             message = 'Nice!'
             confetti.start();
@@ -166,7 +157,7 @@ Quiz.prototype.render = function (container) {
         $('#submit-button').slideUp();
         $('#next-question-button').slideUp();
         $('#prev-question-button').slideUp();
-       // $('#quiz-retry-button').sideDown();
+        // $('#quiz-retry-button').sideDown();
 
     });
 
@@ -191,7 +182,7 @@ var Question = function (question_string, correct_choice, wrong_choices) {
     this.user_choice_index = null; // Index of the user's choice selection
 
     // Random assign the correct choice an index
-    this.correct_choice_index = Math.floor(Math.random(0, wrong_choices.length + 1));
+    this.correct_choice_index = Math.floor(Math.random() * (wrong_choices.length + 1));
 
     // Fill in this.choices with the choices
     var number_of_choices = wrong_choices.length + 1;
@@ -278,5 +269,3 @@ $(document).ready(function () {
     var quiz_container = $('#quiz');
     quiz.render(quiz_container);
 });
-
-
