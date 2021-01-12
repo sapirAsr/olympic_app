@@ -26,7 +26,7 @@ function login() {
             }
         }
     };
-    xhttp.open("GET", "https://localhost:5001/api/Users/login/" + username + "&" + password, true);
+    xhttp.open("GET", "http://localhost:5001/api/Users/login/" + username + "&" + password, true);
     xhttp.send();
 }
 
@@ -57,7 +57,7 @@ function signup() {
                 }
             }
         };
-        xhttp.open("POST", "https://localhost:5001/api/Users/sign_up/" + username + "&" + password, true);
+        xhttp.open("POST", "http://localhost:5001/api/Users/sign_up/" + username + "&" + password, true);
         xhttp.send();
     }
 }

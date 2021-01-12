@@ -1,4 +1,4 @@
-
+/*
 using System;
 using System.Data;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace olympic_app
             DBSearch dbSearch = new DBSearch(conn);
             DBQuiz dbQuiz = new DBQuiz(conn, dbGeneral);
             // creates 100 posts
-            dbFeed.GeneratePosts();
+           // dbFeed.GeneratePosts();
             
             //get lists of users
             string queryString ="SELECT User_name FROM olympicapp.users;";
@@ -50,7 +50,7 @@ namespace olympic_app
                 Console.WriteLine("cant get users");
             }
             //get a list of number of posts
-            queryString ="SELECT Post_id FROM olympicapp.feed;";
+            queryString ="SELECT Post_id FROM team30.feed;";
             List<string> posts_id = new List<string>();
             try
             {
@@ -68,7 +68,7 @@ namespace olympic_app
                 Console.WriteLine("cant get post_id");
             }
             // do likes
-
+            Console.WriteLine(posts_id.Count);
             for (int i = 0; i < users.Count; i++)
             {
                 for (int j = 0; j < posts_id.Count; j++)
@@ -77,6 +77,7 @@ namespace olympic_app
                     int prob = gen.Next(100);
                     // do like randomly
                     if(prob <= 20) {
+                        Console.WriteLine("like");
                         dbFeed.LikePost(users[i],posts_id[j]);
                     }
                 }
@@ -85,4 +86,5 @@ namespace olympic_app
         }       
     }
 }
+*/
 

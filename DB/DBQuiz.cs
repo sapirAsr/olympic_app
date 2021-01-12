@@ -163,11 +163,11 @@ namespace olympic_app.DB
         }
         //function returns a list of 4 athletes from the sport given
         public List<string> Get4RandomAthletesBySport(string sport){
-            var queryString = "(SELECT DISTINCT olympicapp.athletes.Name, olympicapp.medals.Medal " +
-                              "FROM olympicapp.medals JOIN olympicapp.event_types " +
-                              "ON olympicapp.medals.Event_id = olympicapp.event_types.Event_id JOIN olympicapp.athletes " +
-                              "ON olympicapp.athletes.Athlete_id = olympicapp.medals.Athlete_id " +
-                              "WHERE olympicapp.event_types.Sport = '" + sport +"') " +
+            var queryString = "(SELECT DISTINCT team30.athletes.Name, team30.medals.Medal " +
+                              "FROM team30.medals JOIN team30.event_types " +
+                              "ON team30.medals.Event_id = team30.event_types.Event_id JOIN team30.athletes " +
+                              "ON team30.athletes.Athlete_id = team30.medals.Athlete_id " +
+                              "WHERE team30.event_types.Sport = '" + sport +"') " +
                               "ORDER BY RAND() LIMIT 4;";
                               List<string> result = new List<string>();
             try {
@@ -190,7 +190,7 @@ namespace olympic_app.DB
         
         // function returns the athlete that the condition matchs
         public string GetXByYWhereZFromAthletes(string x, string y, string z){
-            var queryString = @"SELECT " + x +" From olympicapp.athletes WHERE "+ y +" = '" + z + "';";
+            var queryString = @"SELECT " + x +" From team30.athletes WHERE "+ y +" = '" + z + "';";
             string result = "";
             try{
                 MySqlCommand cmd = new MySqlCommand(queryString, connection);
@@ -211,7 +211,7 @@ namespace olympic_app.DB
 
         // function returns list of 3 years without the year that was given to it
         public List<string> WrongYears(string year){
-            var queryString = "SELECT Birth_year From olympicapp.athletes WHERE Birth_year <> \"" + year + "\" LIMIT 3";
+            var queryString = "SELECT Birth_year From team30.athletes WHERE Birth_year <> \"" + year + "\" LIMIT 3";
             List<string> result = new List<string>();
             try {
                 MySqlCommand cmd = new MySqlCommand(queryString, connection);
@@ -232,7 +232,7 @@ namespace olympic_app.DB
 
         // function returns list of 3 countries without the country that was given to it
         public List<string> WrongCountries(string country){
-            var queryString = "SELECT DISTINCT Country From olympicapp.countries WHERE Country <> \"" + country + "\" LIMIT 3;";
+            var queryString = "SELECT DISTINCT Country From team30.countries WHERE Country <> \"" + country + "\" LIMIT 3;";
             List<string> result = new List<string>();
             try{
                 MySqlCommand cmd = new MySqlCommand(queryString, connection);

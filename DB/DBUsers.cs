@@ -25,7 +25,7 @@ namespace olympic_app.DB
         // function gets username and password 
         //and returns user object if its null the user was already exist
         public User NewUserRegister(string username, string password){
-            string queryString = "INSERT INTO olympicapp.users (User_name,Password,Is_admin) VALUES (\"" + username + "\",\"" +  password + "\",0);";            
+            string queryString = "INSERT INTO team30.users (User_name,Password,Is_admin) VALUES (\"" + username + "\",\"" +  password + "\",0);";            
             User result = new User();
             try{
                 MySqlCommand cmd = new MySqlCommand(queryString, connection);
@@ -48,7 +48,7 @@ namespace olympic_app.DB
         // function gets username and password 
         //and returns user object if its null the user doesnt exist
         public User Login(string username, string password){
-            string queryString ="SELECT User_name, Password, Is_admin FROM olympicapp.users WHERE User_name = \"" + username + "\" AND Password = \"" + password + "\"";
+            string queryString ="SELECT User_name, Password, Is_admin FROM team30.users WHERE User_name = \"" + username + "\" AND Password = \"" + password + "\"";
             User result = new User();
             try{
                 MySqlCommand cmd = new MySqlCommand(queryString, connection);
@@ -82,7 +82,7 @@ namespace olympic_app.DB
                 isAdmin = true;
                 username = username.Remove(username.Length - 1);
             }
-            string queryString = " DELETE FROM olympicapp.users WHERE User_name = \"" + username + "\"";
+            string queryString = " DELETE FROM team30.users WHERE User_name = \"" + username + "\"";
             try
             {
                 cmd = new MySqlCommand(queryString, connection);
@@ -97,7 +97,7 @@ namespace olympic_app.DB
             if (isAdmin)
             {
                 //delete from admin_permissions
-                queryString = " DELETE FROM olympicapp.admin_permissions WHERE User_name = \"" + username + "\";";
+                queryString = " DELETE FROM team30.admin_permissions WHERE User_name = \"" + username + "\";";
                 cmd = new MySqlCommand(queryString, connection);
                 try
                 {
@@ -111,7 +111,7 @@ namespace olympic_app.DB
                     Console.WriteLine("error while deleting this admin user");
                 }
                 //delete from likes
-                queryString = " DELETE FROM olympicapp.likes WHERE User_name = \"" + username + "\";";
+                queryString = " DELETE FROM team30.likes WHERE User_name = \"" + username + "\";";
                 cmd = new MySqlCommand(queryString, connection);
                 try
                 {
@@ -134,7 +134,7 @@ namespace olympic_app.DB
         // return true if the password changed else false
         public bool ChangePassword(string username, string new_password){
       
-            string queryString =" UPDATE olympicapp.users SET Password = \""+ new_password +"\" WHERE User_name = \""+ username +"\";";
+            string queryString =" UPDATE team30.users SET Password = \""+ new_password +"\" WHERE User_name = \""+ username +"\";";
             try
             {
                 MySqlCommand cmd = new MySqlCommand(queryString, connection);
@@ -163,7 +163,7 @@ namespace olympic_app.DB
             string queryString = "";
             MySqlCommand cmd;
             if(!isAdmin){
-                queryString = "UPDATE olympicapp.users SET Is_admin = 1 WHERE User_name = \"" + user + "\";";
+                queryString = "UPDATE team30.users SET Is_admin = 1 WHERE User_name = \"" + user + "\";";
                 cmd = new MySqlCommand(queryString, connection);
                 try
                 {
@@ -204,7 +204,7 @@ namespace olympic_app.DB
         // function returns a list of sports that the username has admin permissions
         public List<string> GetAdminList(string username)
         {
-            string queryString = "SELECT Sport FROM olympicapp.admin_permissions WHERE User_name = \"" + username + "\";";
+            string queryString = "SELECT Sport FROM team30.admin_permissions WHERE User_name = \"" + username + "\";";
             List<string> result = new List<string>();
             try
             {

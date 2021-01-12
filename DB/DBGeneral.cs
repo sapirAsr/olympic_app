@@ -40,7 +40,7 @@ namespace olympic_app.DB
         }
          // select column from a specific table, helper can be apllied for more conditions
         public List<string> SelectColFromTable(string col, string table, string helper){
-            string query =  "SELECT DISTINCT "+ col + " FROM olympicapp."+ table +  helper + ";";
+            string query =  "SELECT DISTINCT "+ col + " FROM team30."+ table +  helper + ";";
             List<string> result =  new List<string>();
             try{
                 MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -90,9 +90,9 @@ namespace olympic_app.DB
 
             var queryString = "SELECT Name,"+ parameter +" FROM" +
             "(SELECT Athlete_id, Name, "+ parameter +" FROM " +
-            "(SELECT Athlete_id, Name, "+ parameter +" FROM olympicapp.athletes AS temp WHERE Athlete_id IN " + 
-            "(SELECT Athlete_Id FROM olympicapp.medals WHERE (event_id IN " +
-            "(SELECT event_id FROM olympicapp.event_types WHERE sport = \"" + sport + "\"" + "))" +
+            "(SELECT Athlete_id, Name, "+ parameter +" FROM team30.athletes AS temp WHERE Athlete_id IN " + 
+            "(SELECT Athlete_Id FROM team30.medals WHERE (event_id IN " +
+            "(SELECT event_id FROM team30.event_types WHERE sport = \"" + sport + "\"" + "))" +
             "GROUP BY Athlete_Id) AND " + parameter +" <> \"NA\") AS temp2 ORDER BY cast(" + parameter + " as unsigned) " + order + " LIMIT 4) AS temp3;";
             List<List<string>> result = new List<List<string>>();
             try{
@@ -116,9 +116,9 @@ namespace olympic_app.DB
        //gets the names of the 4 best athlete with the helper  AND  medal <> \"NA\"" "
        //gets the names of 4 most participants with the helper -""
         public List<string> TheBestXAthlete(string sport , string helper){
-            var queryString = "SELECT Name FROM olympicapp.athletes WHERE Athlete_Id IN (SELECT Athlete_Id FROM (" +
-            "SELECT Athlete_Id, COUNT(*) AS magnitude FROM (SELECT Athlete_Id, Medal FROM olympicapp.medals WHERE ((event_id IN " +
-            "(SELECT event_id FROM olympicapp.event_types WHERE sport = \"" + sport + "\"" + ")))" + helper + ") AS temp " +
+            var queryString = "SELECT Name FROM team30.athletes WHERE Athlete_Id IN (SELECT Athlete_Id FROM (" +
+            "SELECT Athlete_Id, COUNT(*) AS magnitude FROM (SELECT Athlete_Id, Medal FROM team30.medals WHERE ((event_id IN " +
+            "(SELECT event_id FROM team30.event_types WHERE sport = \"" + sport + "\"" + ")))" + helper + ") AS temp " +
             "GROUP BY Athlete_Id " +
              "ORDER BY magnitude DESC " +
             "LIMIT 4) AS temp2);";

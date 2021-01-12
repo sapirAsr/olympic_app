@@ -7,7 +7,7 @@ function delete_user() {
     if (isadmin) {
         temp = "&";
     }
-    fetch("https://localhost:5001/api/Users/delete/" + username + temp, {
+    fetch("http://localhost:5001/api/Users/delete/" + username + temp, {
         method: 'DELETE',
     }).catch(function () {
         alert("Connection problem, please try again later.");
@@ -40,7 +40,7 @@ function update_passord() {
                 }
             }
         };
-        xhttp.open("POST", "https://localhost:5001/api/Users/change_password/" + name + "&" + new_password, true);
+        xhttp.open("POST", "http://localhost:5001/api/Users/change_password/" + name + "&" + new_password, true);
         xhttp.send();
     }
 }
@@ -52,6 +52,7 @@ function show_admins() {
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
             if (this.status === 200) {
+                $("#admin_list").empty();
                 let adminlist = JSON.parse(this.responseText);
                 if (adminlist.length == 0) {
                     var str = "<div>" + "You haven't completed any test yet.. " + "<br/>" + "Go to the Tests tab to try your best!" + "</div> <br/>";
@@ -66,6 +67,6 @@ function show_admins() {
             }
         }
     };
-    xhttp.open("GET", "https://localhost:5001/api/Users/adminlist/" + name, true);
+    xhttp.open("GET", "http://localhost:5001/api/Users/adminlist/" + name, true);
     xhttp.send();
 }

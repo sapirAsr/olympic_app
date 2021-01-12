@@ -30,6 +30,6 @@
             }
         }
     };
-    xhttp.open("GET", "https://localhost:5001/api/Feed", true);
+    xhttp.open("GET", "http://localhost:5001/api/Feed", true);
     xhttp.send();
 }

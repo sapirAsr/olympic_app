@@ -3,9 +3,14 @@
 function load_feed_news() {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        if (this.readyState === 4) {
+        if (this.readyState != 4) {
+            document.getElementById('feed-panel').style.display="none";
+            document.getElementById('loader').style.visibility = "visible"; 
+        }if (this.readyState === 4) {
             if (this.status === 200) {
                 $("#feed-panel").empty();
+                document.getElementById('loader').style.visibility="hidden";
+                document.getElementById('feed-panel').style.display="block";
                 let feedPost = JSON.parse(this.responseText);
                 for (i = 0; i < feedPost.length; i++) {
                     var str = "<div class='panel'><div class='media-block'>";
@@ -22,11 +27,12 @@ function load_feed_news() {
 
                 }
             } else {
+                document.getElementById('loader').style.visibility="hidden";
                 alert("Connection problem, please try again later.");
             }
         }
     };
-    xhttp.open("GET", "https://localhost:5001/api/Feed", true);
+    xhttp.open("GET", "http://localhost:5001/api/Feed", true);
     xhttp.send();
 }
 
@@ -46,7 +52,7 @@ function like(post_id) {
             }
         }
     };
-    xhttp.open("POST", "https://localhost:5001/api/Feed/like/" + username + "&" + post_id, true);
+    xhttp.open("POST", "http://localhost:5001/api/Feed/like/" + username + "&" + post_id, true);
     xhttp.send();
 }
 
@@ -68,7 +74,7 @@ function dislike(post_id) {
                 }
             }
         };
-        xhttp.open("POST", "https://localhost:5001/api/Feed/dislike/" + username + "&" + post_id, true);
+        xhttp.open("POST", "http://localhost:5001/api/Feed/dislike/" + username + "&" + post_id, true);
         xhttp.send();
     }
 
@@ -88,7 +94,7 @@ function update_number_of_likes(post_id) {
             }
         }
     };
-    xhttp.open("GET", "https://localhost:5001/api/Feed/" + post_id, true);
+    xhttp.open("GET", "http://localhost:5001/api/Feed/" + post_id, true);
     xhttp.send();
 
 }

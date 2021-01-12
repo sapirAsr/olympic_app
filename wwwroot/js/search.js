@@ -27,7 +27,7 @@ function getList(idName, url){
             } 
         }                  
     };     
-    xhttp.open("GET", "https://localhost:5001/api/Search/"+url, true);
+    xhttp.open("GET", "http://localhost:5001/api/Search/"+url, true);
     xhttp.send();  
 }
 
@@ -51,7 +51,7 @@ function get_sports(){
             } 
         }           
     };     
-    xhttp.open("GET", "https://localhost:5001/api/Search/sportslist", true);
+    xhttp.open("GET", "http://localhost:5001/api/Search/sportslist", true);
     xhttp.send();  
 }
 
@@ -113,7 +113,7 @@ function getBestAthlete(sport){
             } 
         }           
     };     
-    xhttp.open("GET", "https://localhost:5001/api/Search/best_athlete/" + sportstr, true);
+    xhttp.open("GET", "http://localhost:5001/api/Search/best_athlete/" + sportstr, true);
     xhttp.send(); 
 }
 
@@ -133,7 +133,7 @@ function getLocation(game){
             } 
         }           
     };     
-    xhttp.open("GET", "https://localhost:5001/api/Search/location/" + game, true);
+    xhttp.open("GET", "http://localhost:5001/api/Search/location/" + game, true);
     xhttp.send(); 
 }
 
@@ -161,8 +161,11 @@ function getThefact(sport, fact){
 function getTheAnswerMost(str){
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        if (this.readyState === 4) {
+        if (this.readyState != 4) {
+            document.getElementById('loader_most').style.visibility = "visible"; 
+        }if (this.readyState === 4) {
             if (this.status === 200) {
+                document.getElementById('loader_most').style.visibility="hidden";
                 let result = JSON.parse(this.responseText);
                 let answer = document.getElementById("answer_most");
                 answer.innerHTML = result[0] +", " + result[1];
@@ -173,7 +176,7 @@ function getTheAnswerMost(str){
             } 
         }           
     };     
-    xhttp.open("GET", "https://localhost:5001/api/Search/the_most/" + str, true);
+    xhttp.open("GET", "http://localhost:5001/api/Search/the_most/" + str, true);
     xhttp.send(); 
 }
 
@@ -248,8 +251,11 @@ function getAtrToSearch(){
 function filter(atr,answer){
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        if (this.readyState === 4) {
+        if (this.readyState != 4) {
+            document.getElementById('loader').style.visibility = "visible"; 
+        }if (this.readyState === 4) {
             if (this.status === 200) {
+                document.getElementById('loader').style.visibility="hidden";
                 let results = JSON.parse(this.responseText);
                 for (i = 0; i < results.length; i++) {
                     $("#" + answer).append("<li class ='answer_display'>" + results[i] + "</li>");   
@@ -257,11 +263,12 @@ function filter(atr,answer){
                 document.getElementById(answer).style.display = "inline-block";
                 
             } else { 
+                document.getElementById('loader').style.visibility="hidden";
                 alert("Connection problem, please try again later.");
             } 
         }           
     };
-    var str = "https://localhost:5001/api/Search/filter/";
+    var str = "http://localhost:5001/api/Search/filter/";
     // set the atributes on the url sent to the server
     for(var key in atr) {
         str += key;
@@ -383,4 +390,5 @@ function openLink(evt, linkName) {
     }
     document.getElementById(linkName).style.display = "block";
     evt.currentTarget.className += " w3-red";
+    resetSelects();
   }

@@ -18,7 +18,7 @@ namespace olympic_app.DB
         //Initialize values and open connection
         public bool OpenConnection()
         {        
-            string connectionString = "Server=127.0.0.1;Database=olympicapp;User Id=root;Password=Sapir1912" ;
+            string connectionString = "Server=127.0.0.1;Database=team30;User Id=root;Password=Sapir1912" ;
             connection = new MySqlConnection(connectionString);
             try {
                 connection.Open();   

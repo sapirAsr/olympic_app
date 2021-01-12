@@ -26,7 +26,7 @@ function get_quiz() {
         }
     };
     var quiz_st = sessionStorage.getItem('sport_field');
-    var st = "https://localhost:5001/api/Quiz/" + quiz_st;
+    var st = "http://localhost:5001/api/Quiz/" + quiz_st;
     xhttp.open("GET", st, false);
     xhttp.send();
 }
@@ -132,7 +132,7 @@ Quiz.prototype.render = function (container) {
                     }
                 }
             };
-            xhttp.open("POST", "https://localhost:5001/api/Users/admin/" + admin_username + "&" + cur_sport_field + "&" + cur_admin_field, true);
+            xhttp.open("POST", "http://localhost:5001/api/Users/admin/" + admin_username + "&" + cur_sport_field + "&" + cur_admin_field, true);
             xhttp.send();
         }
 
